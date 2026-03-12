@@ -1,0 +1,1426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>CyberNexus — Cybersecurity Fundamentals</title>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Rajdhani:wght@400;500;600;700&family=Exo+2:wght@300;400;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --bg-primary: #020810;
+  --bg-secondary: #050f1e;
+  --bg-card: #071224;
+  --bg-card-hover: #0a1a30;
+  --blue-bright: #00b4ff;
+  --blue-mid: #0080cc;
+  --blue-dark: #003a66;
+  --blue-glow: rgba(0,180,255,0.15);
+  --blue-glow2: rgba(0,180,255,0.08);
+  --cyan: #00e5ff;
+  --text-primary: #e8f4ff;
+  --text-secondary: #8ab4cc;
+  --text-muted: #456278;
+  --border: #0d2a44;
+  --border-active: #0060aa;
+  --success: #00ff88;
+  --warning: #ffaa00;
+  --danger: #ff3355;
+  --accent: #1a4a7a;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  font-family:'Exo 2',sans-serif;
+  background:var(--bg-primary);
+  color:var(--text-primary);
+  font-size:17px;
+  line-height:1.7;
+  overflow-x:hidden;
+}
+
+/* ─── SCROLLBAR ─── */
+::-webkit-scrollbar{width:6px;}
+::-webkit-scrollbar-track{background:var(--bg-primary);}
+::-webkit-scrollbar-thumb{background:var(--blue-dark);border-radius:3px;}
+::-webkit-scrollbar-thumb:hover{background:var(--blue-mid);}
+
+/* ─── HEADER ─── */
+header{
+  position:fixed;top:0;left:0;right:0;z-index:1000;
+  background:rgba(2,8,16,0.95);
+  border-bottom:1px solid var(--border);
+  backdrop-filter:blur(12px);
+  padding:0 2rem;
+  display:flex;align-items:center;justify-content:space-between;
+  height:64px;
+}
+.logo{
+  display:flex;align-items:center;gap:12px;
+  font-family:'Rajdhani',sans-serif;font-size:1.5rem;font-weight:700;
+  color:var(--blue-bright);letter-spacing:2px;
+  text-decoration:none;
+}
+.logo-icon{
+  width:36px;height:36px;
+  background:linear-gradient(135deg,var(--blue-mid),var(--cyan));
+  border-radius:8px;display:flex;align-items:center;justify-content:center;
+  font-size:1.2rem;box-shadow:0 0 15px rgba(0,180,255,0.4);
+}
+.logo span{color:var(--cyan);}
+nav{display:flex;gap:6px;}
+nav a{
+  color:var(--text-secondary);font-size:0.9rem;font-weight:600;
+  padding:6px 14px;border-radius:6px;text-decoration:none;
+  transition:all 0.2s;letter-spacing:0.5px;
+  font-family:'Rajdhani',sans-serif;
+}
+nav a:hover{color:var(--blue-bright);background:var(--blue-glow);}
+
+/* ─── HERO ─── */
+.hero{
+  min-height:100vh;
+  display:flex;align-items:center;justify-content:center;
+  padding:100px 2rem 60px;
+  position:relative;
+  overflow:hidden;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 0%, rgba(0,80,160,0.18) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 40% at 10% 80%, rgba(0,60,120,0.12) 0%, transparent 60%),
+    var(--bg-primary);
+}
+.hero-grid{
+  position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(0,100,180,0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,100,180,0.06) 1px, transparent 1px);
+  background-size:50px 50px;
+  animation:grid-pulse 6s ease-in-out infinite;
+}
+@keyframes grid-pulse{
+  0%,100%{opacity:0.4;}
+  50%{opacity:0.8;}
+}
+.hero-content{text-align:center;max-width:900px;position:relative;z-index:1;}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(0,100,180,0.15);border:1px solid rgba(0,180,255,0.2);
+  padding:6px 18px;border-radius:30px;
+  font-size:0.85rem;color:var(--blue-bright);font-family:'Share Tech Mono',monospace;
+  margin-bottom:24px;letter-spacing:1px;
+}
+.hero-badge::before{content:'●';color:var(--success);animation:blink 1.5s infinite;}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:0.2;};}
+h1{
+  font-family:'Rajdhani',sans-serif;
+  font-size:clamp(2.4rem,6vw,4.2rem);
+  font-weight:800;line-height:1.1;
+  margin-bottom:20px;
+  background:linear-gradient(135deg,#ffffff 0%,var(--blue-bright) 50%,var(--cyan) 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  letter-spacing:2px;
+}
+.hero-sub{
+  font-size:1.2rem;color:var(--text-secondary);
+  max-width:680px;margin:0 auto 40px;
+  font-weight:300;
+}
+.hero-stats{
+  display:flex;gap:40px;justify-content:center;
+  flex-wrap:wrap;margin-bottom:50px;
+}
+.stat{text-align:center;}
+.stat-num{
+  font-family:'Rajdhani',sans-serif;font-size:2.2rem;font-weight:700;
+  color:var(--blue-bright);display:block;
+}
+.stat-label{font-size:0.85rem;color:var(--text-muted);letter-spacing:1px;text-transform:uppercase;}
+.hero-cta{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;}
+.btn-primary{
+  background:linear-gradient(135deg,var(--blue-mid),var(--cyan));
+  color:#000;font-weight:700;padding:14px 32px;border-radius:8px;
+  font-family:'Rajdhani',sans-serif;font-size:1.1rem;letter-spacing:1px;
+  text-decoration:none;border:none;cursor:pointer;
+  transition:all 0.3s;box-shadow:0 0 20px rgba(0,180,255,0.3);
+  display:inline-flex;align-items:center;gap:8px;
+}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 0 35px rgba(0,180,255,0.5);}
+.btn-secondary{
+  background:transparent;color:var(--blue-bright);
+  padding:14px 32px;border-radius:8px;
+  font-family:'Rajdhani',sans-serif;font-size:1.1rem;letter-spacing:1px;
+  text-decoration:none;border:1px solid var(--blue-mid);cursor:pointer;
+  transition:all 0.3s;
+  display:inline-flex;align-items:center;gap:8px;
+}
+.btn-secondary:hover{background:var(--blue-glow);transform:translateY(-2px);}
+
+/* ─── SECTION TITLES ─── */
+.section{padding:80px 2rem;max-width:1300px;margin:0 auto;}
+.section-title{
+  font-family:'Rajdhani',sans-serif;font-size:2.4rem;font-weight:700;
+  color:var(--blue-bright);text-align:center;margin-bottom:12px;letter-spacing:2px;
+}
+.section-sub{text-align:center;color:var(--text-secondary);margin-bottom:50px;font-size:1.05rem;}
+.divider{
+  height:1px;
+  background:linear-gradient(90deg,transparent,var(--blue-dark),transparent);
+  margin:20px 0 50px;
+}
+
+/* ─── MODULE GRID ─── */
+.modules-grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
+  gap:16px;margin-bottom:60px;
+}
+.module-card{
+  background:var(--bg-card);
+  border:1px solid var(--border);
+  border-radius:12px;padding:22px;
+  cursor:pointer;transition:all 0.3s;
+  position:relative;overflow:hidden;
+}
+.module-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--blue-mid),var(--cyan));
+  opacity:0;transition:opacity 0.3s;
+}
+.module-card:hover{
+  background:var(--bg-card-hover);
+  border-color:var(--border-active);
+  transform:translateY(-4px);
+  box-shadow:0 8px 30px rgba(0,100,180,0.2);
+}
+.module-card:hover::before{opacity:1;}
+.module-num{
+  font-family:'Share Tech Mono',monospace;font-size:0.8rem;
+  color:var(--blue-mid);margin-bottom:8px;letter-spacing:1px;
+}
+.module-title{
+  font-family:'Rajdhani',sans-serif;font-size:1.2rem;font-weight:600;
+  color:var(--text-primary);margin-bottom:8px;
+}
+.module-desc{font-size:0.9rem;color:var(--text-secondary);}
+.module-icon{font-size:1.8rem;margin-bottom:12px;}
+.module-tag{
+  display:inline-block;margin-top:12px;
+  background:var(--blue-glow2);border:1px solid rgba(0,180,255,0.15);
+  padding:3px 10px;border-radius:20px;
+  font-size:0.75rem;color:var(--blue-bright);
+  font-family:'Share Tech Mono',monospace;
+}
+
+/* ─── MODULE CONTENT PANEL ─── */
+.module-panel{
+  display:none;
+  background:var(--bg-secondary);
+  border:1px solid var(--border-active);
+  border-radius:16px;
+  margin-bottom:40px;
+  overflow:hidden;
+  animation:slide-in 0.3s ease;
+}
+.module-panel.active{display:block;}
+@keyframes slide-in{from{opacity:0;transform:translateY(-10px);}to{opacity:1;transform:translateY(0);}}
+.panel-header{
+  background:linear-gradient(135deg,rgba(0,80,160,0.4),rgba(0,40,80,0.6));
+  padding:30px 40px;
+  border-bottom:1px solid var(--border);
+  display:flex;align-items:center;gap:20px;
+}
+.panel-icon{font-size:2.8rem;}
+.panel-header-text h2{
+  font-family:'Rajdhani',sans-serif;font-size:1.9rem;font-weight:700;
+  color:var(--blue-bright);letter-spacing:1px;
+}
+.panel-header-text p{color:var(--text-secondary);font-size:0.95rem;margin-top:4px;}
+.panel-body{padding:40px;}
+.close-panel{
+  margin-left:auto;background:rgba(255,255,255,0.05);
+  border:1px solid var(--border);border-radius:8px;
+  padding:8px 16px;color:var(--text-secondary);cursor:pointer;
+  font-size:1.2rem;transition:all 0.2s;
+}
+.close-panel:hover{background:rgba(255,50,50,0.15);border-color:#ff3355;color:#ff3355;}
+
+/* ─── DEFINITION BOX ─── */
+.def-box{
+  background:linear-gradient(135deg,rgba(0,60,120,0.3),rgba(0,40,80,0.2));
+  border:1px solid rgba(0,180,255,0.25);
+  border-left:4px solid var(--blue-bright);
+  border-radius:10px;padding:20px 24px;margin:20px 0;
+}
+.def-box .def-label{
+  font-family:'Share Tech Mono',monospace;font-size:0.78rem;
+  color:var(--blue-bright);letter-spacing:2px;margin-bottom:8px;
+  text-transform:uppercase;
+}
+.def-box p{color:var(--text-primary);font-size:1rem;line-height:1.7;}
+
+/* ─── EXAMPLE BOX ─── */
+.example-box{
+  background:rgba(0,255,136,0.04);
+  border:1px solid rgba(0,255,136,0.2);
+  border-left:4px solid var(--success);
+  border-radius:10px;padding:18px 22px;margin:16px 0;
+}
+.example-box .ex-label{
+  font-family:'Share Tech Mono',monospace;font-size:0.78rem;
+  color:var(--success);letter-spacing:2px;margin-bottom:8px;
+}
+
+/* ─── WARNING BOX ─── */
+.warn-box{
+  background:rgba(255,170,0,0.06);
+  border:1px solid rgba(255,170,0,0.25);
+  border-left:4px solid var(--warning);
+  border-radius:10px;padding:18px 22px;margin:16px 0;
+}
+.warn-box .warn-label{
+  font-family:'Share Tech Mono',monospace;font-size:0.78rem;
+  color:var(--warning);letter-spacing:2px;margin-bottom:8px;
+}
+
+/* ─── TOPIC SECTIONS ─── */
+.topic{margin:32px 0;}
+.topic h3{
+  font-family:'Rajdhani',sans-serif;font-size:1.4rem;font-weight:600;
+  color:var(--cyan);margin-bottom:12px;
+  display:flex;align-items:center;gap:10px;
+}
+.topic h3::before{content:'›';color:var(--blue-bright);font-size:1.6rem;}
+.topic h4{
+  font-family:'Rajdhani',sans-serif;font-size:1.15rem;font-weight:600;
+  color:var(--blue-bright);margin:16px 0 8px;
+}
+.topic p{color:var(--text-secondary);margin-bottom:12px;font-size:1rem;}
+
+/* ─── DIAGRAM ─── */
+.diagram{
+  background:var(--bg-card);border:1px solid var(--border);
+  border-radius:12px;padding:30px;margin:24px 0;
+  text-align:center;overflow-x:auto;
+}
+.diagram-title{
+  font-family:'Share Tech Mono',monospace;font-size:0.85rem;
+  color:var(--blue-mid);margin-bottom:20px;letter-spacing:2px;
+}
+.flow{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:8px;}
+.flow-box{
+  background:linear-gradient(135deg,rgba(0,80,160,0.4),rgba(0,40,80,0.6));
+  border:1px solid var(--border-active);border-radius:8px;
+  padding:10px 18px;font-size:0.9rem;color:var(--text-primary);
+  font-family:'Rajdhani',sans-serif;font-weight:600;white-space:nowrap;
+}
+.flow-box.highlight{
+  background:linear-gradient(135deg,rgba(0,160,220,0.3),rgba(0,100,180,0.4));
+  border-color:var(--blue-bright);color:var(--blue-bright);
+}
+.flow-arrow{color:var(--blue-bright);font-size:1.4rem;}
+.cia-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:16px;
+  margin:20px 0;
+}
+.cia-card{
+  background:linear-gradient(135deg,rgba(0,80,160,0.3),rgba(0,40,80,0.5));
+  border:1px solid var(--border-active);border-radius:10px;
+  padding:20px;text-align:center;
+}
+.cia-icon{font-size:2rem;margin-bottom:8px;display:block;}
+.cia-card h4{font-family:'Rajdhani',sans-serif;color:var(--blue-bright);font-size:1.1rem;}
+.cia-card p{font-size:0.88rem;color:var(--text-secondary);}
+
+/* ─── TAGS ─── */
+.tags{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0;}
+.tag{
+  background:var(--blue-glow2);border:1px solid rgba(0,180,255,0.2);
+  padding:4px 12px;border-radius:20px;
+  font-size:0.82rem;color:var(--blue-bright);
+  font-family:'Share Tech Mono',monospace;
+}
+.tag.red{background:rgba(255,50,80,0.08);border-color:rgba(255,50,80,0.25);color:#ff6680;}
+.tag.green{background:rgba(0,255,136,0.06);border-color:rgba(0,255,136,0.2);color:#00ff88;}
+.tag.yellow{background:rgba(255,170,0,0.06);border-color:rgba(255,170,0,0.2);color:#ffaa00;}
+
+/* ─── TERMS ACCORDION ─── */
+.terms-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px;margin:20px 0;}
+.term-item{
+  background:var(--bg-card);border:1px solid var(--border);
+  border-radius:8px;overflow:hidden;cursor:pointer;
+  transition:border-color 0.2s;
+}
+.term-item:hover{border-color:var(--border-active);}
+.term-header{
+  padding:12px 16px;display:flex;justify-content:space-between;align-items:center;
+}
+.term-name{font-family:'Rajdhani',sans-serif;font-weight:600;color:var(--text-primary);font-size:1rem;}
+.term-arrow{color:var(--blue-mid);transition:transform 0.2s;font-size:0.85rem;}
+.term-body{
+  display:none;padding:0 16px 14px;
+  color:var(--text-secondary);font-size:0.92rem;line-height:1.6;
+  border-top:1px solid var(--border);
+}
+.term-body.open{display:block;}
+.term-item.open .term-arrow{transform:rotate(180deg);}
+
+/* ─── YOUTUBE LINKS ─── */
+.yt-section{
+  background:linear-gradient(135deg,rgba(30,0,0,0.4),rgba(10,0,0,0.6));
+  border:1px solid rgba(255,50,50,0.2);
+  border-radius:12px;padding:28px;margin-top:30px;
+}
+.yt-title{
+  display:flex;align-items:center;gap:10px;
+  font-family:'Rajdhani',sans-serif;font-size:1.3rem;font-weight:600;
+  color:#ff4444;margin-bottom:18px;
+}
+.yt-links{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px;}
+.yt-link{
+  display:flex;align-items:center;gap:12px;
+  background:rgba(255,50,50,0.06);border:1px solid rgba(255,50,50,0.15);
+  border-radius:8px;padding:12px 16px;
+  text-decoration:none;color:var(--text-primary);
+  transition:all 0.2s;font-size:0.92rem;
+}
+.yt-link:hover{
+  background:rgba(255,50,50,0.12);border-color:rgba(255,80,80,0.3);
+  transform:translateX(4px);
+}
+.yt-thumb{
+  width:36px;height:36px;background:#ff2020;border-radius:8px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:0.85rem;flex-shrink:0;color:#fff;
+}
+
+/* ─── INTERVIEW PREP ─── */
+.interview-section{
+  background:rgba(0,60,120,0.1);
+  border:1px solid rgba(0,180,255,0.15);
+  border-radius:12px;padding:24px;margin:24px 0;
+}
+.interview-title{
+  font-family:'Rajdhani',sans-serif;font-size:1.2rem;font-weight:600;
+  color:var(--cyan);margin-bottom:16px;display:flex;align-items:center;gap:8px;
+}
+.q-list{list-style:none;}
+.q-list li{
+  padding:10px 0;border-bottom:1px solid rgba(0,100,160,0.2);
+  color:var(--text-secondary);font-size:0.95rem;
+  display:flex;align-items:flex-start;gap:10px;
+}
+.q-list li::before{content:'Q:';color:var(--blue-bright);font-family:'Share Tech Mono',monospace;font-size:0.8rem;margin-top:2px;flex-shrink:0;}
+.q-list li:last-child{border-bottom:none;}
+
+/* ─── TABS ─── */
+.tabs{display:flex;gap:8px;border-bottom:1px solid var(--border);margin-bottom:24px;}
+.tab-btn{
+  background:transparent;border:none;
+  padding:10px 20px;color:var(--text-muted);
+  font-family:'Rajdhani',sans-serif;font-size:1rem;font-weight:600;
+  cursor:pointer;transition:all 0.2s;letter-spacing:0.5px;
+  position:relative;
+}
+.tab-btn.active{color:var(--blue-bright);}
+.tab-btn.active::after{
+  content:'';position:absolute;bottom:-1px;left:0;right:0;height:2px;
+  background:var(--blue-bright);
+}
+.tab-content{display:none;}
+.tab-content.active{display:block;}
+
+/* ─── README SECTION ─── */
+.readme-section{
+  background:var(--bg-card);
+  border:1px solid var(--border);
+  border-radius:16px;overflow:hidden;margin:40px 0;
+}
+.readme-header{
+  background:linear-gradient(135deg,#0d1117,#161b22);
+  padding:18px 24px;border-bottom:1px solid var(--border);
+  display:flex;align-items:center;gap:12px;
+  font-family:'Share Tech Mono',monospace;
+}
+.readme-dot{width:12px;height:12px;border-radius:50%;}
+.dot-red{background:#ff5f56;}
+.dot-yellow{background:#ffbd2e;}
+.dot-green{background:#27c93f;}
+.readme-filename{color:var(--text-secondary);font-size:0.9rem;margin-left:8px;}
+.readme-body{padding:36px;font-family:'Share Tech Mono',monospace;font-size:0.9rem;line-height:1.8;}
+.readme-body h1{color:var(--blue-bright);font-size:1.6rem;margin-bottom:8px;}
+.readme-body h2{color:var(--cyan);font-size:1.2rem;margin:20px 0 8px;border-bottom:1px solid var(--border);padding-bottom:6px;}
+.readme-body h3{color:var(--text-primary);font-size:1rem;margin:14px 0 6px;}
+.readme-body p,.readme-body li{color:var(--text-secondary);font-size:0.88rem;}
+.readme-body ul{padding-left:20px;margin:8px 0;}
+.readme-body code{background:rgba(0,100,180,0.2);padding:2px 6px;border-radius:4px;color:var(--cyan);}
+.readme-body pre{background:rgba(0,0,0,0.3);padding:16px;border-radius:8px;margin:12px 0;overflow-x:auto;border:1px solid var(--border);}
+.readme-body a{color:var(--blue-bright);}
+.badge-row{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0;}
+.gh-badge{
+  background:rgba(0,100,180,0.2);border:1px solid rgba(0,150,220,0.3);
+  padding:4px 12px;border-radius:20px;font-size:0.78rem;color:var(--blue-bright);
+}
+
+/* ─── LINKEDIN POST ─── */
+.linkedin-card{
+  background:var(--bg-card);border:1px solid var(--border);
+  border-radius:16px;overflow:hidden;max-width:680px;margin:0 auto;
+}
+.li-header{
+  padding:18px 24px;border-bottom:1px solid var(--border);
+  display:flex;align-items:center;gap:12px;
+}
+.li-avatar{
+  width:48px;height:48px;border-radius:50%;
+  background:linear-gradient(135deg,var(--blue-mid),var(--cyan));
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.3rem;
+}
+.li-name{font-family:'Rajdhani',sans-serif;font-weight:700;color:var(--text-primary);}
+.li-title-sub{font-size:0.82rem;color:var(--text-muted);}
+.li-body{padding:24px;color:var(--text-secondary);font-size:0.98rem;line-height:1.75;}
+.li-body .li-highlight{color:var(--text-primary);font-weight:600;}
+.hashtags{margin-top:14px;color:var(--blue-bright);font-size:0.92rem;line-height:2;}
+.li-footer{
+  padding:14px 24px;border-top:1px solid var(--border);
+  display:flex;gap:20px;
+}
+.li-action{
+  display:flex;align-items:center;gap:6px;
+  color:var(--text-muted);font-size:0.88rem;cursor:pointer;
+  transition:color 0.2s;
+}
+.li-action:hover{color:var(--blue-bright);}
+.repo-input-box{
+  background:rgba(0,100,180,0.1);border:1px dashed rgba(0,180,255,0.3);
+  border-radius:8px;padding:16px;margin:16px 0;
+  color:var(--text-muted);font-size:0.9rem;font-family:'Share Tech Mono',monospace;
+}
+
+/* ─── PROGRESS TRACKER ─── */
+.progress-panel{
+  background:var(--bg-card);border:1px solid var(--border);
+  border-radius:12px;padding:24px;margin:30px 0;
+  position:sticky;top:80px;
+}
+.progress-title{
+  font-family:'Rajdhani',sans-serif;font-size:1.1rem;font-weight:600;
+  color:var(--blue-bright);margin-bottom:14px;
+}
+.progress-bar-outer{
+  background:rgba(0,100,180,0.15);border-radius:20px;height:8px;margin-bottom:8px;
+  overflow:hidden;
+}
+.progress-bar-inner{
+  height:100%;border-radius:20px;
+  background:linear-gradient(90deg,var(--blue-mid),var(--cyan));
+  transition:width 0.5s ease;
+  box-shadow:0 0 10px rgba(0,180,255,0.4);
+}
+.progress-text{font-size:0.85rem;color:var(--text-muted);}
+
+/* ─── SIDEBAR LAYOUT ─── */
+.main-layout{display:grid;grid-template-columns:1fr 260px;gap:30px;align-items:start;}
+@media(max-width:900px){.main-layout{grid-template-columns:1fr;}}
+
+/* ─── QUICK REF GLOSSARY ─── */
+.glossary-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;}
+.gloss-item{
+  background:var(--bg-card);border:1px solid var(--border);
+  border-radius:8px;padding:14px 18px;
+  transition:border-color 0.2s;
+}
+.gloss-item:hover{border-color:var(--border-active);}
+.gloss-term{
+  font-family:'Rajdhani',sans-serif;font-weight:600;color:var(--blue-bright);
+  font-size:1rem;margin-bottom:4px;
+}
+.gloss-def{font-size:0.88rem;color:var(--text-secondary);}
+
+/* ─── SEARCH ─── */
+.search-wrap{max-width:500px;margin:0 auto 40px;position:relative;}
+.search-input{
+  width:100%;background:var(--bg-card);border:1px solid var(--border-active);
+  border-radius:30px;padding:12px 20px 12px 48px;
+  color:var(--text-primary);font-size:1rem;font-family:'Exo 2',sans-serif;
+  outline:none;transition:all 0.3s;
+}
+.search-input:focus{box-shadow:0 0 20px rgba(0,180,255,0.15);border-color:var(--blue-bright);}
+.search-icon{position:absolute;left:18px;top:50%;transform:translateY(-50%);color:var(--text-muted);font-size:1rem;}
+
+/* ─── SCROLL TO TOP ─── */
+#scrollTop{
+  position:fixed;bottom:30px;right:30px;z-index:999;
+  background:linear-gradient(135deg,var(--blue-mid),var(--cyan));
+  color:#000;border:none;width:44px;height:44px;border-radius:50%;
+  font-size:1.2rem;cursor:pointer;
+  box-shadow:0 0 20px rgba(0,180,255,0.3);
+  transition:all 0.3s;opacity:0;
+}
+#scrollTop.visible{opacity:1;}
+#scrollTop:hover{transform:translateY(-3px);}
+
+/* ─── FOOTER ─── */
+footer{
+  background:var(--bg-secondary);
+  border-top:1px solid var(--border);
+  padding:40px 2rem;text-align:center;
+  color:var(--text-muted);font-size:0.88rem;
+}
+footer a{color:var(--blue-mid);}
+
+/* ─── HAMBURGER MENU ─── */
+.hamburger{
+  display:none;flex-direction:column;gap:5px;cursor:pointer;
+  background:none;border:none;padding:6px;
+}
+.hamburger span{
+  display:block;width:24px;height:2px;
+  background:var(--blue-bright);border-radius:2px;
+  transition:all 0.3s;
+}
+.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.hamburger.open span:nth-child(2){opacity:0;}
+.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+
+.mobile-nav{
+  display:none;position:fixed;top:64px;left:0;right:0;z-index:999;
+  background:rgba(2,8,16,0.98);border-bottom:1px solid var(--border);
+  backdrop-filter:blur(12px);
+  flex-direction:column;padding:16px;gap:4px;
+}
+.mobile-nav.open{display:flex;}
+.mobile-nav a{
+  color:var(--text-secondary);font-size:1rem;font-weight:600;
+  padding:12px 16px;border-radius:8px;text-decoration:none;
+  transition:all 0.2s;letter-spacing:0.5px;
+  font-family:'Rajdhani',sans-serif;
+  border:1px solid transparent;
+}
+.mobile-nav a:hover{color:var(--blue-bright);background:var(--blue-glow);border-color:var(--border);}
+
+/* ─── RESPONSIVE ─── */
+@media(max-width:900px){
+  .main-layout{grid-template-columns:1fr;}
+}
+
+@media(max-width:768px){
+  header{padding:0 1rem;}
+  nav{display:none;}
+  .hamburger{display:flex;}
+
+  /* Hero */
+  .hero{padding:80px 1rem 40px;}
+  .hero-stats{gap:16px;}
+  .stat-num{font-size:1.7rem;}
+  .hero-sub{font-size:1rem;}
+  .hero-cta{flex-direction:column;align-items:center;}
+  .btn-primary,.btn-secondary{width:100%;max-width:300px;justify-content:center;}
+
+  /* Section */
+  .section{padding:50px 1rem;}
+
+  /* Module panel */
+  .panel-body{padding:16px;}
+  .panel-header{padding:16px;gap:12px;flex-wrap:wrap;}
+  .panel-header-text h2{font-size:1.3rem;}
+  .close-panel{margin-left:0;width:100%;text-align:center;}
+
+  /* Tabs - scrollable on mobile */
+  .tabs{overflow-x:auto;-webkit-overflow-scrolling:touch;flex-wrap:nowrap;padding-bottom:2px;}
+  .tab-btn{white-space:nowrap;padding:10px 14px;font-size:0.9rem;}
+
+  /* Grids */
+  .cia-grid{grid-template-columns:1fr;}
+  .yt-links{grid-template-columns:1fr;}
+  .terms-grid{grid-template-columns:1fr;}
+  .glossary-grid{grid-template-columns:1fr;}
+  .modules-grid{grid-template-columns:1fr;}
+
+  /* Diagrams */
+  .flow{flex-direction:column;}
+  .flow-arrow{transform:rotate(90deg);}
+  .diagram{padding:16px;overflow-x:auto;}
+
+  /* Scroll top */
+  #scrollTop{bottom:16px;right:16px;width:38px;height:38px;font-size:1rem;}
+
+  /* Search */
+  .search-wrap{margin:0 0 30px;}
+
+  /* LinkedIn card */
+  .linkedin-card{margin:0;}
+
+  /* Terminal */
+  .terminal{font-size:0.78rem;padding:14px 12px;overflow-x:auto;}
+
+  /* README */
+  .readme-body{padding:18px;}
+}
+
+@media(max-width:480px){
+  h1{font-size:2rem;}
+  .section-title{font-size:1.8rem;}
+  .hero-stats{justify-content:space-around;}
+  .stat-num{font-size:1.5rem;}
+  .panel-icon{font-size:2rem;}
+  .panel-header-text h2{font-size:1.15rem;}
+  .module-card{padding:16px;}
+  .progress-panel{position:static;}
+}
+
+@media(min-width:769px) and (max-width:1024px){
+  /* iPad / tablet */
+  .hero{padding:90px 2rem 50px;}
+  .modules-grid{grid-template-columns:repeat(2,1fr);}
+  .cia-grid{grid-template-columns:repeat(3,1fr);}
+  .panel-header{padding:24px 30px;}
+  .panel-body{padding:30px;}
+}
+
+/* ─── ANIMATIONS ─── */
+.fade-in{opacity:0;transform:translateY(20px);transition:all 0.5s ease;}
+.fade-in.visible{opacity:1;transform:translateY(0);}
+
+/* ─── TERMINAL EFFECT ─── */
+.terminal{
+  background:#000;border:1px solid var(--border-active);border-radius:10px;
+  padding:20px 24px;font-family:'Share Tech Mono',monospace;font-size:0.9rem;
+  line-height:1.8;margin:16px 0;
+}
+.terminal .prompt{color:var(--success);}
+.terminal .cmd{color:var(--text-primary);}
+.terminal .out{color:var(--text-secondary);}
+.terminal .warn{color:var(--warning);}
+.terminal .err{color:var(--danger);}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <a href="#" class="logo"><div class="logo-icon">⬡</div>Cyber<span>Nexus</span></a>
+  <nav>
+    <a href="#modules">Modules</a>
+    <a href="#glossary">Glossary</a>
+  </nav>
+  <button class="hamburger" id="hamburger" aria-label="Toggle menu" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+
+<!-- MOBILE NAV -->
+<div class="mobile-nav" id="mobileNav">
+  <a href="#modules" onclick="closeMenu()">📚 Modules</a>
+  <a href="#glossary" onclick="closeMenu()">📖 Glossary</a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div class="hero-badge">● OPEN SOURCE LEARNING PLATFORM — v1.0</div>
+    <h1>Cybersecurity Fundamentals<br/>From Zero to Industry-Ready</h1>
+    <p class="hero-sub">The only resource an absolute beginner needs to understand cybersecurity. 25 structured modules, definitions, real-world examples, diagrams, and interview prep — all in one place.</p>
+    <div class="hero-stats">
+      <div class="stat"><span class="stat-num">25</span><span class="stat-label">Modules</span></div>
+      <div class="stat"><span class="stat-num">200+</span><span class="stat-label">Definitions</span></div>
+      <div class="stat"><span class="stat-num">100+</span><span class="stat-label">Resources</span></div>
+      <div class="stat"><span class="stat-num">∞</span><span class="stat-label">Free</span></div>
+    </div>
+    <div class="hero-cta">
+      <a href="#modules" class="btn-primary">🚀 Start Learning</a>
+      <a href="#glossary" class="btn-secondary">📖 Quick Glossary</a>
+    </div>
+  </div>
+</section>
+
+<!-- MODULES OVERVIEW -->
+<div class="section" id="modules">
+  <div class="section-title">📚 Learning Modules</div>
+  <p class="section-sub">Click any module to expand the full lesson. Start from Module 1 and work through in order for best results.</p>
+  <div class="divider"></div>
+  
+  <div class="search-wrap">
+    <span class="search-icon">🔍</span>
+    <input class="search-input" type="text" id="moduleSearch" placeholder="Search modules, topics, tools..." oninput="filterModules(this.value)"/>
+  </div>
+
+  <div class="modules-grid" id="modulesGrid">
+    <!-- Cards generated by JS -->
+  </div>
+</div>
+
+<!-- MODULE PANELS (expanded content) -->
+<div class="section" id="modulePanels" style="padding-top:0;max-width:1300px;">
+</div>
+
+<!-- GLOSSARY -->
+<div class="section" id="glossary" style="background:var(--bg-secondary);max-width:100%;padding:60px 5%;">
+  <div style="max-width:1200px;margin:0 auto;">
+    <div class="section-title">📖 Quick Reference Glossary</div>
+    <p class="section-sub">Essential cybersecurity terms for interview prep and daily reference.</p>
+    <div class="divider"></div>
+    <div class="glossary-grid" id="glossaryGrid"></div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <p>⬡ <strong>CyberNexus</strong> — Open Source Cybersecurity Education</p>
+  <p style="margin-top:8px;">Built for absolute beginners. Free forever. Contributions welcome.</p>
+  <p style="margin-top:12px;font-size:0.8rem;">MIT License · <a href="https://github.com/sid-3110/Cyber-Nexus-CSF-platform" target="_blank">GitHub</a> · Made with ❤️ for the security community</p>
+</footer>
+
+<button id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+// ─── MODULE DATA ───
+const modules = [
+  {
+    id:1, icon:"🔐", title:"Introduction to Cybersecurity", tag:"FOUNDATIONS",
+    desc:"What cybersecurity is, why it matters, and career paths.",
+    content: `
+    <div class="tabs">
+      <button class="tab-btn active" onclick="switchTab(this,'t1-learn')">📖 Learn</button>
+      <button class="tab-btn" onclick="switchTab(this,'t1-terms')">📚 Key Terms</button>
+      <button class="tab-btn" onclick="switchTab(this,'t1-interview')">🎯 Interview Prep</button>
+    </div>
+    <div class="tab-content active" id="t1-learn">
+    <div class="topic">
+      <h3>What is Cybersecurity?</h3>
+      <div class="def-box"><div class="def-label">📖 Definition</div>
+        <p><strong>Cybersecurity</strong> is the practice of protecting computer systems, networks, programs, and data from digital attacks, unauthorized access, damage, or theft. It involves a combination of people, processes, and technologies working together to protect digital assets.</p>
+      </div>
+      <div class="example-box"><div class="ex-label">💡 REAL WORLD EXAMPLE</div>
+        <p>Think of cybersecurity like the security system of a bank. The bank has <strong>locks on doors</strong> (firewalls), <strong>security cameras</strong> (monitoring/SIEM), <strong>security guards</strong> (SOC analysts), and <strong>vaults</strong> (encryption). Cybersecurity does the same thing — but for digital systems.</p>
+      </div>
+    </div>
+    <div class="topic">
+      <h3>Why Cybersecurity Matters</h3>
+      <p>In 2024, the global average cost of a data breach reached <strong>$4.88 million</strong>. Every 39 seconds, a cyberattack occurs somewhere in the world. Cybercrime is predicted to cost the world <strong>$10.5 trillion annually by 2025</strong>.</p>
+      <div class="diagram">
+        <div class="diagram-title">// WHAT CYBERSECURITY PROTECTS</div>
+        <div class="flow">
+          <div class="flow-box highlight">Personal Data</div>
+          <div class="flow-arrow">+</div>
+          <div class="flow-box highlight">Financial Systems</div>
+          <div class="flow-arrow">+</div>
+          <div class="flow-box highlight">Critical Infrastructure</div>
+          <div class="flow-arrow">+</div>
+          <div class="flow-box highlight">Government Secrets</div>
+          <div class="flow-arrow">=</div>
+          <div class="flow-box" style="border-color:var(--success);color:var(--success);">🛡️ CYBERSECURITY</div>
+        </div>
+      </div>
+    </div>
+    <div class="topic">
+      <h3>Cybersecurity Domains</h3>
+      <p>Cybersecurity is a broad field with several specialized domains:</p>
+      <div class="tags">
+        <span class="tag">Network Security</span><span class="tag">Application Security</span>
+        <span class="tag">Cloud Security</span><span class="tag">Endpoint Security</span>
+        <span class="tag">Identity & Access Management</span><span class="tag">Data Security</span>
+        <span class="tag">Incident Response</span><span class="tag">Governance & Compliance</span>
+        <span class="tag">Threat Intelligence</span><span class="tag">Physical Security</span>
+      </div>
+    </div>
+    <div class="topic">
+      <h3>Cybersecurity Career Roles</h3>
+      <div class="terms-grid">
+        <div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">🔵 SOC Analyst</span><span class="term-arrow">▼</span></div><div class="term-body">Monitors security alerts 24/7, investigates incidents, and escalates threats. Entry-level role — great starting point!</div></div>
+        <div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">🔴 Penetration Tester</span><span class="term-arrow">▼</span></div><div class="term-body">Legally hacks into systems to find vulnerabilities before real attackers do. Also called ethical hacker.</div></div>
+        <div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">🟡 Threat Intel Analyst</span><span class="term-arrow">▼</span></div><div class="term-body">Researches attacker groups, tactics, and emerging threats to keep organizations informed.</div></div>
+        <div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">☁️ Cloud Security Engineer</span><span class="term-arrow">▼</span></div><div class="term-body">Secures cloud infrastructure on AWS, Azure, GCP. High demand, high salary role.</div></div>
+        <div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">🔧 Security Engineer</span><span class="term-arrow">▼</span></div><div class="term-body">Builds and maintains security systems, tools, and infrastructure for organizations.</div></div>
+        <div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">🕵️ Threat Hunter</span><span class="term-arrow">▼</span></div><div class="term-body">Proactively searches for hidden threats lurking in the network that automated tools missed.</div></div>
+      </div>
+    </div>
+    </div>
+    <div class="tab-content" id="t1-terms">
+      <div class="terms-grid">
+        <div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">Cybersecurity</span><span class="term-arrow">▼</span></div><div class="term-body">Practice of protecting systems, networks, and data from digital attacks and unauthorized access.</div></div>
+        <div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">Threat</span><span class="term-arrow">▼</span></div><div class="term-body">Any potential danger that could exploit a vulnerability to cause harm to a system or organization.</div></div>
+        <div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">Vulnerability</span><span class="term-arrow">▼</span></div><div class="term-body">A weakness in a system, application, or process that could be exploited by a threat actor.</div></div>
+        <div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">Risk</span><span class="term-arrow">▼</span></div><div class="term-body">The likelihood that a threat will exploit a vulnerability and the resulting impact. Risk = Threat × Vulnerability × Impact.</div></div>
+        <div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">Asset</span><span class="term-arrow">▼</span></div><div class="term-body">Anything of value to an organization — data, hardware, software, intellectual property, reputation.</div></div>
+        <div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">Attack Surface</span><span class="term-arrow">▼</span></div><div class="term-body">The total sum of all different points where an attacker can try to enter or extract data from an environment.</div></div>
+      </div>
+    </div>
+    <div class="tab-content" id="t1-interview">
+      <div class="interview-section"><div class="interview-title">🎯 Common Interview Questions</div>
+        <ul class="q-list">
+          <li>What is cybersecurity and why is it important?</li>
+          <li>What is the difference between a threat, vulnerability, and risk?</li>
+          <li>What are the main domains of cybersecurity?</li>
+          <li>What's the difference between a Blue Team and Red Team?</li>
+          <li>Why do you want to work in cybersecurity?</li>
+          <li>What cybersecurity certifications are most valued by employers?</li>
+        </ul>
+      </div>
+    </div>`
+  },
+  {
+    id:2, icon:"🔒", title:"Core Security Principles", tag:"FUNDAMENTALS",
+    desc:"CIA Triad, AAA, Defense in Depth, Zero Trust.",
+    content: `
+    <div class="tabs">
+      <button class="tab-btn active" onclick="switchTab(this,'t2-learn')">📖 Learn</button>
+      <button class="tab-btn" onclick="switchTab(this,'t2-terms')">📚 Key Terms</button>
+      <button class="tab-btn" onclick="switchTab(this,'t2-interview')">🎯 Interview Prep</button>
+    </div>
+    <div class="tab-content active" id="t2-learn">
+    <div class="topic">
+      <h3>The CIA Triad</h3>
+      <div class="def-box"><div class="def-label">📖 Definition</div>
+        <p>The <strong>CIA Triad</strong> is the foundational model of information security, representing three core principles that guide security decisions: Confidentiality, Integrity, and Availability.</p>
+      </div>
+      <div class="cia-grid">
+        <div class="cia-card"><span class="cia-icon">🔒</span><h4>Confidentiality</h4><p>Ensuring information is accessible only to those authorized to have access. <em>Example: Encrypting your emails so only the recipient can read them.</em></p></div>
+        <div class="cia-card"><span class="cia-icon">✅</span><h4>Integrity</h4><p>Ensuring data is accurate and has not been tampered with. <em>Example: A file hash confirming a downloaded file hasn't been modified.</em></p></div>
+        <div class="cia-card"><span class="cia-icon">⚡</span><h4>Availability</h4><p>Ensuring systems and data are accessible when needed. <em>Example: A website staying online even during a DDoS attack.</em></p></div>
+      </div>
+      <div class="example-box"><div class="ex-label">💡 REAL WORLD EXAMPLE</div>
+        <p>A <strong>hospital</strong>: Patient records must be <strong>Confidential</strong> (only doctors can see them), <strong>Intact</strong> (no one should alter prescriptions), and <strong>Available</strong> (accessible in emergencies). A ransomware attack violates Availability. A hacker viewing records violates Confidentiality.</p>
+      </div>
+    </div>
+    <div class="topic">
+      <h3>Authentication, Authorization & Accounting (AAA)</h3>
+      <div class="diagram">
+        <div class="diagram-title">// AAA FRAMEWORK</div>
+        <div class="flow">
+          <div class="flow-box">👤 User</div><div class="flow-arrow">→</div>
+          <div class="flow-box highlight">🔑 Authentication<br/><small>WHO are you?</small></div><div class="flow-arrow">→</div>
+          <div class="flow-box highlight">🚪 Authorization<br/><small>WHAT can you do?</small></div><div class="flow-arrow">→</div>
+          <div class="flow-box highlight">📋 Accounting<br/><small>WHAT did you do?</small></div>
+        </div>
+      </div>
+      <div class="terms-grid">
+        <div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">Authentication</span><span class="term-arrow">▼</span></div><div class="term-body">Verifying WHO you are. Like showing your ID at a door. Methods: password, fingerprint, smart card, OTP.</div></div>
+        <div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">Authorization</span><span class="term-arrow">▼</span></div><div class="term-body">Determining WHAT you're allowed to do after being authenticated. Like having an employee badge that only opens certain doors.</div></div>
+        <div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">Accounting (Audit)</span><span class="term-arrow">▼</span></div><div class="term-body">Tracking and recording what authenticated users DO. Like a hotel keeping a log of which room a key card was used to enter.</div></div>
+      </div>
+    </div>
+    <div class="topic">
+      <h3>Least Privilege</h3>
+      <div class="def-box"><div class="def-label">📖 Definition</div>
+        <p><strong>Least Privilege</strong> means giving users and systems only the minimum level of access rights they need to perform their job — nothing more.</p>
+      </div>
+      <div class="example-box"><div class="ex-label">💡 EXAMPLE</div>
+        <p>A cashier at a bank can process transactions but cannot approve loans or access the CEO's account. They have only the access they NEED.</p>
+      </div>
+    </div>
+    <div class="topic">
+      <h3>Defense in Depth</h3>
+      <div class="def-box"><div class="def-label">📖 Definition</div>
+        <p><strong>Defense in Depth</strong> is a security strategy that uses multiple layers of security controls. If one layer fails, others still protect the system.</p>
+      </div>
+      <div class="diagram">
+        <div class="diagram-title">// DEFENSE IN DEPTH — LAYERS</div>
+        <div class="flow" style="flex-direction:column;gap:6px;">
+          <div class="flow-box" style="width:90%;text-align:center;">🏢 Physical Security (Locked Server Room)</div>
+          <div class="flow-box" style="width:80%;text-align:center;">🌐 Network Security (Firewall, IDS)</div>
+          <div class="flow-box" style="width:70%;text-align:center;">💻 Endpoint Security (Antivirus, EDR)</div>
+          <div class="flow-box" style="width:60%;text-align:center;">📱 Application Security (WAF, Patches)</div>
+          <div class="flow-box highlight" style="width:50%;text-align:center;">🔒 Data Security (Encryption)</div>
+        </div>
+      </div>
+    </div>
+    <div class="topic">
+      <h3>Zero Trust Security</h3>
+      <div class="def-box"><div class="def-label">📖 Definition</div>
+        <p><strong>Zero Trust</strong> is a security model based on the principle of <em>"Never Trust, Always Verify"</em>. No user or device is trusted by default — even inside the network. Every access request is authenticated and authorized.</p>
+      </div>
+      <div class="warn-box"><div class="warn-label">⚠️ WHY IT MATTERS</div>
+        <p>Traditional security assumed everything inside the corporate network was safe. But with remote work, cloud, and BYOD, attackers can be inside the network. Zero Trust solves this.</p>
+      </div>
+    </div>
+    </div>
+    <div class="tab-content" id="t2-terms">
+      <div class="terms-grid">
+        <div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">CIA Triad</span><span class="term-arrow">▼</span></div><div class="term-body">Confidentiality, Integrity, Availability — the three pillars of information security.</div></div>
+        <div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">Least Privilege</span><span class="term-arrow">▼</span></div><div class="term-body">Granting only the minimum permissions required for a user or process to perform their function.</div></div>
+        <div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">Zero Trust</span><span class="term-arrow">▼</span></div><div class="term-body">"Never trust, always verify" — a model that requires strict identity verification for every person and device.</div></div>
+        <div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">Defense in Depth</span><span class="term-arrow">▼</span></div><div class="term-body">Layered security approach where multiple security controls protect against threats at different levels.</div></div>
+        <div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">Non-repudiation</span><span class="term-arrow">▼</span></div><div class="term-body">Ensuring that a party cannot deny the authenticity of their signature or the sending of a message. Digital signatures provide this.</div></div>
+        <div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">Separation of Duties</span><span class="term-arrow">▼</span></div><div class="term-body">Dividing critical tasks among multiple people to prevent fraud. E.g., one person approves payments, another processes them.</div></div>
+      </div>
+    </div>
+    <div class="tab-content" id="t2-interview">
+      <div class="interview-section"><div class="interview-title">🎯 Common Interview Questions</div>
+        <ul class="q-list">
+          <li>Explain the CIA Triad with a real-world example.</li>
+          <li>What is the difference between authentication and authorization?</li>
+          <li>What does Zero Trust mean and why is it important today?</li>
+          <li>How does Defense in Depth protect an organization?</li>
+          <li>What is the principle of least privilege?</li>
+          <li>Give an example where all three CIA properties were violated in a single attack.</li>
+        </ul>
+      </div>
+    </div>`
+  },
+  {
+    id:3, icon:"⚠️", title:"Cyber Threat Landscape", tag:"THREATS",
+    desc:"Types of attackers, motivations, and attack categories.",
+    content:`
+    <div class="tabs">
+      <button class="tab-btn active" onclick="switchTab(this,'t3-learn')">📖 Learn</button>
+      <button class="tab-btn" onclick="switchTab(this,'t3-terms')">📚 Key Terms</button>
+      <button class="tab-btn" onclick="switchTab(this,'t3-interview')">🎯 Interview Prep</button>
+    </div>
+    <div class="tab-content active" id="t3-learn">
+    <div class="topic">
+      <h3>Who Are the Attackers?</h3>
+      <div class="def-box"><div class="def-label">📖 Definition</div>
+        <p>A <strong>Threat Actor</strong> is any individual or group that carries out cyberattacks. Understanding their motivations helps defenders predict and prevent attacks.</p>
+      </div>
+      <div class="terms-grid">
+        <div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">🎮 Script Kiddies</span><span class="term-arrow">▼</span></div><div class="term-body">Low-skill attackers who use pre-made hacking tools without understanding them. Motivated by curiosity or bragging rights. Less dangerous individually but numerous.</div></div>
+        <div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">💰 Cyber Criminals</span><span class="term-arrow">▼</span></div><div class="term-body">Financially motivated attackers who steal data, deploy ransomware, or commit fraud. Most common threat actors today.</div></div>
+        <div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">🏛️ Nation-State Actors</span><span class="term-arrow">▼</span></div><div class="term-body">Government-sponsored hackers with massive resources. Target critical infrastructure, government agencies, defense. Example: APT groups.</div></div>
+        <div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">👔 Insider Threats</span><span class="term-arrow">▼</span></div><div class="term-body">Employees or contractors who misuse their access — either maliciously (for money/revenge) or accidentally (clicking phishing links).</div></div>
+        <div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">✊ Hacktivists</span><span class="term-arrow">▼</span></div><div class="term-body">Politically or ideologically motivated hackers. Attack organizations whose values they oppose. Example: Anonymous targeting corporations.</div></div>
+        <div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">🔬 Researchers / White Hat</span><span class="term-arrow">▼</span></div><div class="term-body">Ethical hackers who find and report vulnerabilities to help organizations improve security. Work with permission.</div></div>
+      </div>
+    </div>
+    <div class="topic">
+      <h3>Types of Cyber Attacks</h3>
+      <div class="diagram">
+        <div class="diagram-title">// ATTACK TAXONOMY</div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px;margin-top:10px;">
+          <div class="flow-box" style="text-align:center;padding:14px;">🦠<br/>Malware Attacks</div>
+          <div class="flow-box" style="text-align:center;padding:14px;">🌐<br/>Web Attacks</div>
+          <div class="flow-box" style="text-align:center;padding:14px;">📡<br/>Network Attacks</div>
+          <div class="flow-box" style="text-align:center;padding:14px;">🎭<br/>Social Engineering</div>
+          <div class="flow-box" style="text-align:center;padding:14px;">👁️<br/>Insider Threats</div>
+          <div class="flow-box" style="text-align:center;padding:14px;">💥<br/>DoS/DDoS</div>
+        </div>
+      </div>
+    </div>
+    <div class="topic">
+      <h3>The Attack Lifecycle (Cyber Kill Chain)</h3>
+      <div class="def-box"><div class="def-label">📖 Definition</div>
+        <p>The <strong>Cyber Kill Chain</strong> (by Lockheed Martin) describes the stages of a cyberattack. Understanding this helps defenders detect and stop attacks at each stage.</p>
+      </div>
+      <div class="diagram">
+        <div class="diagram-title">// CYBER KILL CHAIN — 7 STAGES</div>
+        <div class="flow" style="flex-wrap:wrap;gap:6px;">
+          <div class="flow-box">1. Reconnaissance</div><div class="flow-arrow">→</div>
+          <div class="flow-box">2. Weaponization</div><div class="flow-arrow">→</div>
+          <div class="flow-box">3. Delivery</div><div class="flow-arrow">→</div>
+          <div class="flow-box">4. Exploitation</div><div class="flow-arrow">→</div>
+          <div class="flow-box">5. Installation</div><div class="flow-arrow">→</div>
+          <div class="flow-box">6. C2</div><div class="flow-arrow">→</div>
+          <div class="flow-box highlight">7. Actions</div>
+        </div>
+      </div>
+    </div>
+    </div>
+    <div class="tab-content" id="t3-terms">
+      <div class="terms-grid">
+        <div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">Threat Actor</span><span class="term-arrow">▼</span></div><div class="term-body">Any entity (person, group, or nation) that conducts or sponsors cyberattacks.</div></div>
+        <div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">APT (Advanced Persistent Threat)</span><span class="term-arrow">▼</span></div><div class="term-body">A sophisticated, long-term attack campaign, usually state-sponsored, targeting high-value organizations. Stay hidden for months/years.</div></div>
+        <div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">Cyber Kill Chain</span><span class="term-arrow">▼</span></div><div class="term-body">A framework describing the 7 stages of a cyberattack: Reconnaissance → Weaponization → Delivery → Exploitation → Installation → C2 → Actions.</div></div>
+        <div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">Attack Vector</span><span class="term-arrow">▼</span></div><div class="term-body">The path or means by which an attacker gains access to a target. Examples: phishing email, unpatched vulnerability, USB drive.</div></div>
+        <div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">TTPs</span><span class="term-arrow">▼</span></div><div class="term-body">Tactics, Techniques, and Procedures — the specific methods attackers use. Used in threat intelligence to profile attackers.</div></div>
+        <div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">Zero-Day</span><span class="term-arrow">▼</span></div><div class="term-body">A vulnerability unknown to the vendor, with no patch available. Highly valuable to attackers. "Zero days" for defenders to respond.</div></div>
+      </div>
+    </div>
+    <div class="tab-content" id="t3-interview">
+      <div class="interview-section"><div class="interview-title">🎯 Common Interview Questions</div>
+        <ul class="q-list">
+          <li>What is the difference between a threat actor and a vulnerability?</li>
+          <li>Explain the Cyber Kill Chain and its 7 stages.</li>
+          <li>What is an APT (Advanced Persistent Threat)?</li>
+          <li>What motivates different types of threat actors?</li>
+          <li>What is a zero-day vulnerability?</li>
+          <li>What are TTPs and how are they used in threat intelligence?</li>
+        </ul>
+      </div>
+    </div>`
+  },
+  {
+    id:4, icon:"🦠", title:"Types of Malware", tag:"ATTACKS",
+    desc:"Viruses, worms, ransomware, trojans, rootkits, botnets.",
+    content:`
+    <div class="tabs">
+      <button class="tab-btn active" onclick="switchTab(this,'t4-learn')">📖 Learn</button>
+      <button class="tab-btn" onclick="switchTab(this,'t4-terms')">📚 Key Terms</button>
+      <button class="tab-btn" onclick="switchTab(this,'t4-interview')">🎯 Interview Prep</button>
+    </div>
+    <div class="tab-content active" id="t4-learn">
+    <div class="topic">
+      <h3>What is Malware?</h3>
+      <div class="def-box"><div class="def-label">📖 Definition</div>
+        <p><strong>Malware</strong> (Malicious Software) is any software intentionally designed to cause disruption, damage, or unauthorized access to a computer system. It's the digital equivalent of a disease.</p>
+      </div>
+    </div>
+    <div class="topic">
+      <h3>Types of Malware</h3>
+      <div class="terms-grid">
+        <div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">🦠 Virus</span><span class="term-arrow">▼</span></div><div class="term-body"><strong>Definition:</strong> Attaches itself to legitimate files and spreads when those files are shared or executed. Requires human action to spread.<br/><strong>Example:</strong> A malicious Word macro that spreads when someone opens the infected document.</div></div>
+        <div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">🪱 Worm</span><span class="term-arrow">▼</span></div><div class="term-body"><strong>Definition:</strong> Self-replicating malware that spreads across networks WITHOUT human interaction.<br/><strong>Example:</strong> WannaCry spread to 200,000 computers in 150 countries in hours by exploiting a Windows vulnerability.</div></div>
+        <div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">🐴 Trojan</span><span class="term-arrow">▼</span></div><div class="term-body"><strong>Definition:</strong> Malware disguised as legitimate software. Tricks users into installing it.<br/><strong>Example:</strong> A "free game download" that secretly installs a backdoor giving attackers remote access.</div></div>
+        <div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">💰 Ransomware</span><span class="term-arrow">▼</span></div><div class="term-body"><strong>Definition:</strong> Encrypts victim's files and demands payment (ransom) to restore access.<br/><strong>Example:</strong> Colonial Pipeline paid $4.4M after ransomware shut down fuel supplies to the US East Coast.</div></div>
+        <div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">🕵️ Spyware</span><span class="term-arrow">▼</span></div><div class="term-body"><strong>Definition:</strong> Secretly monitors user activity (keystrokes, screenshots, browsing) and sends data to attacker.<br/><strong>Example:</strong> Keylogger recording your banking passwords.</div></div>
+        <div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">📢 Adware</span><span class="term-arrow">▼</span></div><div class="term-body"><strong>Definition:</strong> Displays unwanted ads. Often bundled with free software. Less harmful but annoying and can track behavior.</div></div>
+        <div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">🦷 Rootkit</span><span class="term-arrow">▼</span></div><div class="term-body"><strong>Definition:</strong> Hides deep in the OS (even kernel level), making it nearly invisible to standard antivirus. Extremely dangerous and hard to remove.</div></div>
+        <div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">🤖 Botnet</span><span class="term-arrow">▼</span></div><div class="term-body"><strong>Definition:</strong> A network of infected computers (bots) controlled remotely by an attacker (botmaster) via C2 servers. Used for DDoS, spam, cryptocurrency mining.</div></div>
+      </div>
+    </div>
+    <div class="topic">
+      <h3>Command & Control (C2)</h3>
+      <div class="def-box"><div class="def-label">📖 Definition</div>
+        <p><strong>C2 (Command and Control)</strong> is the infrastructure used by attackers to communicate with compromised systems. Malware "calls home" to receive instructions from the attacker's C2 server.</p>
+      </div>
+      <div class="diagram">
+        <div class="diagram-title">// BOTNET C2 ARCHITECTURE</div>
+        <div class="flow">
+          <div class="flow-box highlight">👤 Attacker</div><div class="flow-arrow">→</div>
+          <div class="flow-box">C2 Server</div><div class="flow-arrow">→</div>
+          <div class="flow-box">Bot 1</div>
+          <div class="flow-box">Bot 2</div>
+          <div class="flow-box">Bot 3...N</div>
+        </div>
+      </div>
+    </div>
+    </div>
+    <div class="tab-content" id="t4-terms">
+      <div class="terms-grid">
+        <div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">Malware</span><span class="term-arrow">▼</span></div><div class="term-body">Short for "malicious software" — any program designed to harm, disrupt, or gain unauthorized access.</div></div>
+        <div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">Payload</span><span class="term-arrow">▼</span></div><div class="term-body">The malicious action carried out by malware after infection. E.g., encrypting files, stealing passwords, creating backdoors.</div></div>
+        <div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">Dropper</span><span class="term-arrow">▼</span></div><div class="term-body">Malware that installs other malware on a victim's system. Acts as the delivery mechanism.</div></div>
+        <div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">Fileless Malware</span><span class="term-arrow">▼</span></div><div class="term-body">Malware that operates entirely in memory (RAM) without writing to disk, making it harder for antivirus to detect.</div></div>
+        <div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">Backdoor</span><span class="term-arrow">▼</span></div><div class="term-body">A hidden method of bypassing normal authentication to gain remote access to a system.</div></div>
+        <div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">RAT (Remote Access Trojan)</span><span class="term-arrow">▼</span></div><div class="term-body">A trojan that gives an attacker full remote control of a victim's system, including webcam, microphone, file system.</div></div>
+      </div>
+    </div>
+    <div class="tab-content" id="t4-interview">
+      <div class="interview-section"><div class="interview-title">🎯 Common Interview Questions</div>
+        <ul class="q-list">
+          <li>What is the difference between a virus and a worm?</li>
+          <li>How does ransomware work? Give a real-world example.</li>
+          <li>What is a botnet and how is it controlled?</li>
+          <li>What is a rootkit and why is it so dangerous?</li>
+          <li>What is the difference between a Trojan and a virus?</li>
+          <li>How does fileless malware evade detection?</li>
+        </ul>
+      </div>
+    </div>`
+  },
+  {
+    id:5, icon:"🌐", title:"Networking Fundamentals for Security", tag:"NETWORKING",
+    desc:"IP addresses, ports, protocols, packets, network monitoring.",
+    content:`
+    <div class="tabs">
+      <button class="tab-btn active" onclick="switchTab(this,'t5-learn')">📖 Learn</button>
+      <button class="tab-btn" onclick="switchTab(this,'t5-terms')">📚 Key Terms</button>
+      <button class="tab-btn" onclick="switchTab(this,'t5-interview')">🎯 Interview Prep</button>
+    </div>
+    <div class="tab-content active" id="t5-learn">
+    <div class="topic">
+      <h3>Why Networking Matters for Security</h3>
+      <p>Most cyberattacks travel over networks. To defend a network, you must understand how it works. Every SOC analyst, pentester, and security engineer needs solid networking fundamentals.</p>
+      <div class="def-box"><div class="def-label">📖 Definition</div>
+        <p>A <strong>Network</strong> is a collection of connected devices (computers, servers, phones) that communicate using agreed-upon rules called <strong>protocols</strong>.</p>
+      </div>
+    </div>
+    <div class="topic">
+      <h3>IP Addresses</h3>
+      <div class="def-box"><div class="def-label">📖 Definition</div>
+        <p>An <strong>IP Address</strong> is a unique numerical label assigned to every device on a network, used to identify and locate devices. Like a home address for your computer.</p>
+      </div>
+      <div class="terminal">
+        <div class="prompt">$ </div><span class="cmd">ifconfig / ipconfig</span><br/>
+        <div class="out">IPv4: 192.168.1.105  ← Private (local network)</div>
+        <div class="out">IPv6: 2001:0db8::1   ← Next-gen IP addressing</div>
+        <div class="warn">Public IP: 203.0.113.45 ← What the internet sees</div>
+      </div>
+    </div>
+    <div class="topic">
+      <h3>Ports — The Doors of a Network</h3>
+      <div class="def-box"><div class="def-label">📖 Definition</div>
+        <p>A <strong>Port</strong> is a virtual "door" on a computer that different network services use. Think of an IP address as a building and ports as individual apartment doors.</p>
+      </div>
+      <div class="terms-grid">
+        <div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">Port 80 — HTTP</span><span class="term-arrow">▼</span></div><div class="term-body">Unencrypted web traffic. When you visit http:// websites, your browser connects to port 80.</div></div>
+        <div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">Port 443 — HTTPS</span><span class="term-arrow">▼</span></div><div class="term-body">Encrypted web traffic (TLS/SSL). All modern websites should use this. Padlock in browser = port 443.</div></div>
+        <div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">Port 22 — SSH</span><span class="term-arrow">▼</span></div><div class="term-body">Secure Shell — encrypted remote access to servers. Often targeted by brute force attacks.</div></div>
+        <div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">Port 53 — DNS</span><span class="term-arrow">▼</span></div><div class="term-body">Domain Name System — translates domain names to IP addresses. "The phonebook of the internet."</div></div>
+        <div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">Port 21 — FTP</span><span class="term-arrow">▼</span></div><div class="term-body">File Transfer Protocol — unencrypted file transfers. Security risk — prefer SFTP (port 22).</div></div>
+        <div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">Port 3389 — RDP</span><span class="term-arrow">▼</span></div><div class="term-body">Remote Desktop Protocol — lets you control Windows remotely. Heavily targeted by attackers.</div></div>
+      </div>
+    </div>
+    <div class="topic">
+      <h3>OSI Model — How Data Travels</h3>
+      <div class="def-box"><div class="def-label">📖 Definition</div>
+        <p>The <strong>OSI Model</strong> is a 7-layer framework that describes how data moves from one device to another over a network.</p>
+      </div>
+      <div class="diagram">
+        <div class="diagram-title">// OSI MODEL — 7 LAYERS (Remember: Please Do Not Throw Sausage Pizza Away)</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:10px;">
+          <div class="flow-box highlight" style="text-align:center;">Layer 7: Application<br/><small>HTTP, DNS, SMTP</small></div>
+          <div class="flow-box highlight" style="text-align:center;">Layer 6: Presentation<br/><small>SSL/TLS, Encryption</small></div>
+          <div class="flow-box highlight" style="text-align:center;">Layer 5: Session<br/><small>Sessions, Auth</small></div>
+          <div class="flow-box" style="text-align:center;">Layer 4: Transport<br/><small>TCP, UDP, Ports</small></div>
+          <div class="flow-box" style="text-align:center;">Layer 3: Network<br/><small>IP, Routing</small></div>
+          <div class="flow-box" style="text-align:center;">Layer 2: Data Link<br/><small>MAC, Switches</small></div>
+          <div class="flow-box" style="grid-column:span 3;text-align:center;">Layer 1: Physical — Cables, WiFi, Hardware</div>
+        </div>
+      </div>
+    </div>
+    </div>
+    <div class="tab-content" id="t5-terms">
+      <div class="terms-grid">
+        <div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">TCP/IP</span><span class="term-arrow">▼</span></div><div class="term-body">Transmission Control Protocol/Internet Protocol — the foundational suite of protocols for internet communication.</div></div>
+        <div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">DNS</span><span class="term-arrow">▼</span></div><div class="term-body">Domain Name System — translates human-readable domain names (google.com) to IP addresses (142.250.80.46).</div></div>
+        <div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">Packet</span><span class="term-arrow">▼</span></div><div class="term-body">A small chunk of data transmitted over a network. Large files are broken into packets, sent separately, and reassembled at destination.</div></div>
+        <div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">MAC Address</span><span class="term-arrow">▼</span></div><div class="term-body">A unique hardware identifier assigned to every network interface card (NIC). Works at Layer 2 of the OSI model.</div></div>
+        <div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">DHCP</span><span class="term-arrow">▼</span></div><div class="term-body">Dynamic Host Configuration Protocol — automatically assigns IP addresses to devices joining a network.</div></div>
+        <div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">Subnet</span><span class="term-arrow">▼</span></div><div class="term-body">A logical subdivision of a network. Used to improve security, performance, and management. Devices in different subnets need routing to communicate.</div></div>
+      </div>
+    </div>
+    <div class="tab-content" id="t5-interview">
+      <div class="interview-section"><div class="interview-title">🎯 Common Interview Questions</div>
+        <ul class="q-list">
+          <li>What is the OSI model? Explain each layer.</li>
+          <li>What is the difference between TCP and UDP?</li>
+          <li>What happens when you type google.com in a browser? (DNS resolution)</li>
+          <li>What is the difference between a public and private IP address?</li>
+          <li>What are well-known ports and give 5 examples?</li>
+          <li>What is a subnet and why is it used in security?</li>
+        </ul>
+      </div>
+    </div>`
+  },
+  {id:6,icon:"💻",title:"Operating System Security",tag:"OS SECURITY",desc:"Windows/Linux security, users, permissions, logs.",content:`<div class="tabs"><button class="tab-btn active" onclick="switchTab(this,'t6-learn')">📖 Learn</button><button class="tab-btn" onclick="switchTab(this,'t6-terms')">📚 Key Terms</button><button class="tab-btn" onclick="switchTab(this,'t6-interview')">🎯 Interview Prep</button></div><div class="tab-content active" id="t6-learn"><div class="topic"><h3>Why OS Security Matters</h3><div class="def-box"><div class="def-label">📖 Definition</div><p>The <strong>Operating System</strong> is the foundation of every computer. Securing it means controlling user access, monitoring processes, protecting files, and keeping it patched. A compromised OS means everything on it is compromised.</p></div></div><div class="topic"><h3>Users and Privileges</h3><div class="example-box"><div class="ex-label">💡 EXAMPLE</div><p>In Linux, the <strong>root user</strong> has unlimited power — like a skeleton key to every door. Regular users have limited access. Running as root always is dangerous; attackers who compromise that account have total control.</p></div><div class="terminal"><div class="prompt">$ </div><span class="cmd">whoami</span><br/><div class="out">regular_user</div><div class="prompt">$ </div><span class="cmd">sudo whoami</span><br/><div class="out">root</div><div class="warn"># Use sudo (temporary elevation) instead of always being root!</div></div></div><div class="topic"><h3>File Permissions (Linux)</h3><div class="def-box"><div class="def-label">📖 Definition</div><p>Linux uses <strong>rwx permissions</strong> to control who can read (r), write (w), and execute (x) files. Applied to: Owner, Group, Others.</p></div><div class="terminal"><div class="out">-rw-r--r--  1 alice users  4096  secret.txt</div><div class="warn"># Owner: read+write | Group: read only | Others: read only</div><div class="prompt">$ </div><span class="cmd">chmod 600 secret.txt</span><span class="out"> → Only owner can read/write. Others: no access</span></div></div><div class="topic"><h3>System Logs — The Security Black Box</h3><div class="def-box"><div class="def-label">📖 Definition</div><p><strong>System logs</strong> record everything that happens on an OS — logins, file access, errors, process starts. They are the primary evidence source in incident investigations.</p></div><div class="terms-grid"><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">Windows Event Logs</span><span class="term-arrow">▼</span></div><div class="term-body">Found in Event Viewer. Key IDs: 4624 (successful login), 4625 (failed login), 4688 (new process), 4648 (logon with explicit credentials).</div></div><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">Linux Syslog</span><span class="term-arrow">▼</span></div><div class="term-body">Found in /var/log/. Key files: /var/log/auth.log (authentication), /var/log/syslog (system events), /var/log/apache2/ (web server).</div></div></div></div></div><div class="tab-content" id="t6-terms"><div class="terms-grid"><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">Privilege Escalation</span><span class="term-arrow">▼</span></div><div class="term-body">When an attacker gains higher privileges than they should have. From regular user to admin/root. A key step in most attacks.</div></div><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">Process</span><span class="term-arrow">▼</span></div><div class="term-body">A running instance of a program. Malware runs as processes. Monitoring processes can reveal malicious activity.</div></div><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">Registry (Windows)</span><span class="term-arrow">▼</span></div><div class="term-body">A hierarchical database in Windows that stores configuration settings. Malware often modifies it to achieve persistence (auto-run on startup).</div></div><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">Patch Management</span><span class="term-arrow">▼</span></div><div class="term-body">The process of regularly updating OS and software to fix known vulnerabilities. Unpatched systems are the #1 attack entry point.</div></div></div></div><div class="tab-content" id="t6-interview"><div class="interview-section"><div class="interview-title">🎯 Common Interview Questions</div><ul class="q-list"><li>What Windows Event IDs are important for security monitoring?</li><li>What is privilege escalation and how can it be prevented?</li><li>How do Linux file permissions work? Explain rwx.</li><li>Where are important log files stored in Linux?</li><li>What is the Windows Registry and why is it important in forensics?</li></ul></div></div>`},
+  {id:7,icon:"🕸️",title:"Web Application Security",tag:"WEB SECURITY",desc:"How web apps work: frontend, backend, databases.",content:`<div class="tabs"><button class="tab-btn active" onclick="switchTab(this,'t7-learn')">📖 Learn</button><button class="tab-btn" onclick="switchTab(this,'t7-terms')">📚 Key Terms</button><button class="tab-btn" onclick="switchTab(this,'t7-interview')">🎯 Interview Prep</button></div><div class="tab-content active" id="t7-learn"><div class="topic"><h3>How Web Applications Work</h3><div class="def-box"><div class="def-label">📖 Definition</div><p>A <strong>Web Application</strong> is a software program that runs in a web browser, using the internet to store and process data. Examples: Gmail, Facebook, online banking.</p></div><div class="diagram"><div class="diagram-title">// WEB APP ARCHITECTURE</div><div class="flow"><div class="flow-box highlight">🧑 User Browser<br/>(Frontend)</div><div class="flow-arrow">→ HTTP/HTTPS →</div><div class="flow-box">🌐 Web Server<br/>(Backend)</div><div class="flow-arrow">↕</div><div class="flow-box">🗄️ Database<br/>(SQL/NoSQL)</div></div></div></div><div class="topic"><h3>Frontend vs Backend</h3><div class="terms-grid"><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">Frontend (Client-Side)</span><span class="term-arrow">▼</span></div><div class="term-body">What you see in the browser. Built with HTML (structure), CSS (styling), JavaScript (interactivity). Security risk: XSS attacks target frontend.</div></div><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">Backend (Server-Side)</span><span class="term-arrow">▼</span></div><div class="term-body">Server logic processing requests, built with Python/Node.js/Java. Security risks: SQL injection, authentication flaws, command injection.</div></div><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">Database</span><span class="term-arrow">▼</span></div><div class="term-body">Stores user data, passwords, records. SQL databases (MySQL, PostgreSQL) are most common. Attack: SQL Injection can dump the entire database.</div></div><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">API</span><span class="term-arrow">▼</span></div><div class="term-body">Application Programming Interface — how apps communicate with each other. REST APIs power most modern web apps. Insecure APIs are a major attack surface.</div></div></div></div><div class="topic"><h3>HTTP Request/Response Cycle</h3><div class="terminal"><div class="prompt">Browser → </div><span class="cmd">GET /login HTTP/1.1</span><br/><div class="out">Host: example.com</div><div class="out">Cookie: session=abc123</div><br/><div class="prompt">Server → </div><span class="cmd">HTTP/1.1 200 OK</span><br/><div class="out">Content-Type: text/html</div><div class="out">&lt;html&gt;Login page...&lt;/html&gt;</div></div></div></div><div class="tab-content" id="t7-terms"><div class="terms-grid"><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">HTTP/HTTPS</span><span class="term-arrow">▼</span></div><div class="term-body">HyperText Transfer Protocol — the communication protocol for web browsers and servers. HTTPS adds TLS encryption.</div></div><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">Cookie</span><span class="term-arrow">▼</span></div><div class="term-body">Small data stored by browser, sent with every request. Session cookies maintain login state. Stolen cookies = session hijacking.</div></div><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">Session</span><span class="term-arrow">▼</span></div><div class="term-body">A temporary interaction between a user and a web application, tracked by a session ID. If hijacked, attacker gets full access.</div></div><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">CORS</span><span class="term-arrow">▼</span></div><div class="term-body">Cross-Origin Resource Sharing — browser security mechanism controlling which websites can request data from each other. Misconfiguration is a common vulnerability.</div></div></div></div><div class="tab-content" id="t7-interview"><div class="interview-section"><div class="interview-title">🎯 Common Interview Questions</div><ul class="q-list"><li>Explain the request-response cycle in HTTP.</li><li>What is the difference between a cookie and a session?</li><li>What is an API and how can it be attacked?</li><li>What is the difference between HTTP and HTTPS?</li><li>What is CORS and why does misconfiguration cause security issues?</li></ul></div></div>`},
+  {id:8,icon:"🔓",title:"OWASP Top 10 Vulnerabilities",tag:"WEB ATTACKS",desc:"SQL Injection, XSS, Broken Access Control, SSRF and more.",content:`<div class="tabs"><button class="tab-btn active" onclick="switchTab(this,'t8-learn')">📖 Learn</button><button class="tab-btn" onclick="switchTab(this,'t8-terms')">📚 Key Terms</button><button class="tab-btn" onclick="switchTab(this,'t8-interview')">🎯 Interview Prep</button></div><div class="tab-content active" id="t8-learn"><div class="topic"><h3>What is OWASP?</h3><div class="def-box"><div class="def-label">📖 Definition</div><p><strong>OWASP</strong> (Open Web Application Security Project) is a non-profit foundation that publishes the <strong>OWASP Top 10</strong> — a list of the most critical web application security risks. It's the industry standard for web security baseline.</p></div></div><div class="topic"><h3>OWASP Top 10 — 2021</h3><div class="terms-grid"><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">A01 — Broken Access Control</span><span class="term-arrow">▼</span></div><div class="term-body"><strong>Definition:</strong> Users can access resources or perform actions beyond their permissions.<br/><strong>Example:</strong> Changing the URL from /user/123 to /user/124 and seeing someone else's data (IDOR).</div></div><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">A02 — Cryptographic Failures</span><span class="term-arrow">▼</span></div><div class="term-body"><strong>Definition:</strong> Weak or missing encryption of sensitive data.<br/><strong>Example:</strong> Storing passwords in plain text, or using MD5 to hash passwords (easily cracked).</div></div><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">A03 — Injection</span><span class="term-arrow">▼</span></div><div class="term-body"><strong>Definition:</strong> Untrusted data sent to an interpreter as a command.<br/><strong>SQL Injection Example:</strong> Input: <code>' OR '1'='1</code> bypasses login by making the query always true. Can dump entire databases.</div></div><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">A04 — Insecure Design</span><span class="term-arrow">▼</span></div><div class="term-body">Flaws in the fundamental design of an application, not just implementation bugs. No security requirements defined from the start.</div></div><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">A05 — Security Misconfiguration</span><span class="term-arrow">▼</span></div><div class="term-body">Default credentials left unchanged, unnecessary services enabled, verbose error messages revealing system info.<br/><strong>Example:</strong> Admin panel at /admin with username "admin" and password "admin".</div></div><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">A06 — Vulnerable Components</span><span class="term-arrow">▼</span></div><div class="term-body">Using outdated libraries with known CVEs. <strong>Example:</strong> Log4Shell — a vulnerability in the Log4j logging library affected millions of apps worldwide in 2021.</div></div><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">A07 — Auth Failures</span><span class="term-arrow">▼</span></div><div class="term-body">Weak authentication: no account lockout (allows brute force), session tokens not invalidated on logout, weak passwords allowed.</div></div><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">A08 — Software Integrity Failures</span><span class="term-arrow">▼</span></div><div class="term-body">Trusting software updates without verifying their integrity. Supply chain attacks (like SolarWinds) exploit this.</div></div><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">A09 — Logging Failures</span><span class="term-arrow">▼</span></div><div class="term-body">Insufficient logging means breaches go undetected. If you can't detect it, you can't respond to it.</div></div><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">A10 — SSRF</span><span class="term-arrow">▼</span></div><div class="term-body"><strong>Server-Side Request Forgery</strong> — Attacker tricks the server into making requests to internal resources.<br/><strong>Example:</strong> Attackers used SSRF against Capital One's AWS instance to steal 100M+ customer records.</div></div></div></div></div><div class="tab-content" id="t8-terms"><div class="terms-grid"><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">SQL Injection</span><span class="term-arrow">▼</span></div><div class="term-body">An attack that inserts malicious SQL code into an input field to manipulate a database query.</div></div><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">XSS (Cross-Site Scripting)</span><span class="term-arrow">▼</span></div><div class="term-body">Injecting malicious scripts into a webpage viewed by other users. Can steal cookies, redirect users, or deface websites.</div></div><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">CSRF</span><span class="term-arrow">▼</span></div><div class="term-body">Cross-Site Request Forgery — tricks an authenticated user into unknowingly submitting a malicious request. E.g., clicking a link that transfers money.</div></div><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">IDOR</span><span class="term-arrow">▼</span></div><div class="term-body">Insecure Direct Object Reference — accessing another user's data by manipulating an ID in a URL or request.</div></div><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">WAF</span><span class="term-arrow">▼</span></div><div class="term-body">Web Application Firewall — sits in front of a web app and filters malicious requests like SQL injection and XSS attempts.</div></div></div></div><div class="tab-content" id="t8-interview"><div class="interview-section"><div class="interview-title">🎯 Common Interview Questions</div><ul class="q-list"><li>What is SQL Injection and how do you prevent it?</li><li>What is the difference between XSS and CSRF?</li><li>What is SSRF and give an example?</li><li>What does OWASP stand for and what is the OWASP Top 10?</li><li>What is IDOR (Insecure Direct Object Reference)?</li><li>How would you secure a login page against common OWASP vulnerabilities?</li></ul></div></div>`},
+  {id:9,icon:"🔑",title:"Cryptography Fundamentals",tag:"CRYPTOGRAPHY",desc:"Encryption, hashing, digital signatures, certificates, PKI.",content:`<div class="tabs"><button class="tab-btn active" onclick="switchTab(this,'t9-learn')">📖 Learn</button><button class="tab-btn" onclick="switchTab(this,'t9-terms')">📚 Key Terms</button><button class="tab-btn" onclick="switchTab(this,'t9-interview')">🎯 Interview Prep</button></div><div class="tab-content active" id="t9-learn"><div class="topic"><h3>What is Cryptography?</h3><div class="def-box"><div class="def-label">📖 Definition</div><p><strong>Cryptography</strong> is the science of securing communication using mathematical algorithms. It protects data confidentiality, integrity, and authenticity.</p></div></div><div class="topic"><h3>Encryption Types</h3><div class="diagram"><div class="diagram-title">// SYMMETRIC vs ASYMMETRIC ENCRYPTION</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:10px;"><div class="flow-box" style="padding:16px;"><strong style="color:var(--blue-bright);">🔑 Symmetric</strong><br/>Same key for encrypt & decrypt<br/><small style="color:var(--text-muted);">Fast. Good for large data.<br/>Key sharing problem.<br/>Example: AES-256</small></div><div class="flow-box" style="padding:16px;"><strong style="color:var(--cyan);">🗝️ Asymmetric</strong><br/>Public key (encrypt) + Private key (decrypt)<br/><small style="color:var(--text-muted);">Slower. Solves key sharing.<br/>Good for key exchange.<br/>Example: RSA, ECC</small></div></div></div></div><div class="topic"><h3>Hashing</h3><div class="def-box"><div class="def-label">📖 Definition</div><p>A <strong>hash</strong> is a one-way function that converts any input into a fixed-length output (digest). Same input always gives same output. Tiny change = completely different hash. Cannot be reversed.</p></div><div class="terminal"><div class="out">Input: "password123"</div><div class="warn">MD5:    482c811da5d5b4bc6d497ffa98491e38  ← WEAK, crackable</div><div class="out">SHA256: ef92b778bafe771e89245b89ecbc08a44a4e166c06659911881f383d4473e94f ← BETTER</div><div class="out">bcrypt: $2b$12$... ← BEST for passwords (slow by design)</div></div></div><div class="topic"><h3>TLS/SSL — HTTPS Explained</h3><div class="def-box"><div class="def-label">📖 Definition</div><p><strong>TLS</strong> (Transport Layer Security) is the protocol that powers HTTPS. It uses asymmetric encryption to exchange keys, then symmetric encryption for the session. The padlock in your browser = TLS.</p></div><div class="diagram"><div class="diagram-title">// TLS HANDSHAKE (SIMPLIFIED)</div><div class="flow"><div class="flow-box">Browser: "Hello, here are my cipher suites"</div><div class="flow-arrow">→</div><div class="flow-box highlight">Server: "Here's my certificate & public key"</div><div class="flow-arrow">→</div><div class="flow-box">Browser verifies cert, creates session key</div><div class="flow-arrow">→</div><div class="flow-box">🔒 Encrypted Session</div></div></div></div></div><div class="tab-content" id="t9-terms"><div class="terms-grid"><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">Encryption</span><span class="term-arrow">▼</span></div><div class="term-body">Converting readable data (plaintext) into unreadable form (ciphertext) using a key. Decryption reverses the process.</div></div><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">AES</span><span class="term-arrow">▼</span></div><div class="term-body">Advanced Encryption Standard — the most widely used symmetric encryption algorithm. AES-256 is used by governments and militaries.</div></div><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">RSA</span><span class="term-arrow">▼</span></div><div class="term-body">Rivest-Shamir-Adleman — a widely used asymmetric encryption algorithm based on the difficulty of factoring large prime numbers.</div></div><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">Digital Signature</span><span class="term-arrow">▼</span></div><div class="term-body">A cryptographic proof that a message came from a specific sender and wasn't altered. Created with private key, verified with public key.</div></div><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">Certificate Authority (CA)</span><span class="term-arrow">▼</span></div><div class="term-body">A trusted organization that issues digital certificates to verify identities. DigiCert, Let's Encrypt are examples.</div></div><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">PKI</span><span class="term-arrow">▼</span></div><div class="term-body">Public Key Infrastructure — the system of hardware, software, policies, and procedures needed to manage digital certificates and public-key encryption.</div></div></div></div><div class="tab-content" id="t9-interview"><div class="interview-section"><div class="interview-title">🎯 Common Interview Questions</div><ul class="q-list"><li>What is the difference between symmetric and asymmetric encryption?</li><li>What is hashing and why can't it be reversed?</li><li>Why is MD5 no longer recommended for passwords?</li><li>How does TLS work? Explain the handshake.</li><li>What is a digital certificate and what does it contain?</li><li>What is the difference between encoding, encryption, and hashing?</li></ul></div></div>`},
+  {id:10,icon:"🪪",title:"Authentication & Access Control",tag:"IAM",desc:"MFA, RBAC, ABAC, passwords, biometrics, SSO.",content:`<div class="tabs"><button class="tab-btn active" onclick="switchTab(this,'t10-learn')">📖 Learn</button><button class="tab-btn" onclick="switchTab(this,'t10-terms')">📚 Key Terms</button><button class="tab-btn" onclick="switchTab(this,'t10-interview')">🎯 Interview Prep</button></div><div class="tab-content active" id="t10-learn"><div class="topic"><h3>Authentication Methods</h3><div class="def-box"><div class="def-label">📖 Definition</div><p><strong>Authentication</strong> is the process of verifying the identity of a user. There are 3 authentication factors, and using more than one is called <strong>Multi-Factor Authentication (MFA)</strong>.</p></div><div class="diagram"><div class="diagram-title">// THREE AUTHENTICATION FACTORS</div><div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:10px;"><div class="flow-box" style="text-align:center;padding:16px;">🧠<br/><strong>Something You Know</strong><br/><small>Password, PIN, security question</small></div><div class="flow-box highlight" style="text-align:center;padding:16px;">📱<br/><strong>Something You Have</strong><br/><small>Phone, token, smart card, OTP</small></div><div class="flow-box" style="text-align:center;padding:16px;">👁️<br/><strong>Something You Are</strong><br/><small>Fingerprint, face, retina (biometrics)</small></div></div></div><div class="example-box"><div class="ex-label">💡 WHY MFA MATTERS</div><p>Even if an attacker steals your password, they can't login without your phone (OTP). MFA blocks 99.9% of account compromise attacks according to Microsoft.</p></div></div><div class="topic"><h3>Access Control Models</h3><div class="terms-grid"><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">RBAC — Role-Based Access Control</span><span class="term-arrow">▼</span></div><div class="term-body"><strong>Definition:</strong> Access based on the user's ROLE in the organization.<br/><strong>Example:</strong> All "managers" can approve expenses. All "developers" can push code. Permissions are assigned to roles, not individuals.</div></div><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">ABAC — Attribute-Based Access Control</span><span class="term-arrow">▼</span></div><div class="term-body"><strong>Definition:</strong> Access based on attributes (location, time, device, clearance level).<br/><strong>Example:</strong> "Allow access only if user is in the US AND is using a company device AND it's business hours."</div></div><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">DAC — Discretionary Access Control</span><span class="term-arrow">▼</span></div><div class="term-body">Resource owners decide who gets access. Linux file permissions are a form of DAC. Flexible but hard to manage at scale.</div></div><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">MAC — Mandatory Access Control</span><span class="term-arrow">▼</span></div><div class="term-body">System enforces access based on classification labels (Top Secret, Secret, Confidential). Used in military/government environments.</div></div></div></div></div><div class="tab-content" id="t10-terms"><div class="terms-grid"><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">MFA</span><span class="term-arrow">▼</span></div><div class="term-body">Multi-Factor Authentication — using 2+ authentication factors. Dramatically reduces account takeover risk.</div></div><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">SSO (Single Sign-On)</span><span class="term-arrow">▼</span></div><div class="term-body">One login grants access to multiple applications. Example: "Login with Google" for many apps. Uses protocols like SAML, OAuth 2.0, OIDC.</div></div><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">OAuth 2.0</span><span class="term-arrow">▼</span></div><div class="term-body">An authorization framework that lets apps access resources on behalf of a user without sharing passwords. Powers "Login with Google/Facebook".</div></div><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">Brute Force Attack</span><span class="term-arrow">▼</span></div><div class="term-body">Systematically trying all possible passwords until the correct one is found. Mitigated by account lockout, MFA, and rate limiting.</div></div><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">Password Spraying</span><span class="term-arrow">▼</span></div><div class="term-body">Trying a few common passwords against many accounts to avoid lockouts. More stealthy than brute force.</div></div></div></div><div class="tab-content" id="t10-interview"><div class="interview-section"><div class="interview-title">🎯 Common Interview Questions</div><ul class="q-list"><li>What are the three factors of authentication? Give examples.</li><li>What is the difference between RBAC and ABAC?</li><li>How does MFA protect against phishing?</li><li>What is the difference between authentication and authorization?</li><li>What is OAuth 2.0 and how does it work?</li><li>What is a password spraying attack?</li></ul></div></div>`},
+  {id:11,icon:"🛡️",title:"Network Security",tag:"NETWORK DEFENSE",desc:"Firewalls, IDS/IPS, VPNs, network segmentation.",content:`<div class="tabs"><button class="tab-btn active" onclick="switchTab(this,'t11-learn')">📖 Learn</button><button class="tab-btn" onclick="switchTab(this,'t11-terms')">📚 Key Terms</button><button class="tab-btn" onclick="switchTab(this,'t11-interview')">🎯 Interview Prep</button></div><div class="tab-content active" id="t11-learn"><div class="topic"><h3>Firewalls</h3><div class="def-box"><div class="def-label">📖 Definition</div><p>A <strong>Firewall</strong> monitors and controls incoming/outgoing network traffic based on predefined security rules. It acts as a barrier between trusted internal networks and untrusted external networks.</p></div><div class="diagram"><div class="diagram-title">// FIREWALL PLACEMENT</div><div class="flow"><div class="flow-box">🌐 Internet</div><div class="flow-arrow">→</div><div class="flow-box highlight">🔥 Firewall</div><div class="flow-arrow">→</div><div class="flow-box">DMZ<br/>(Web Servers)</div><div class="flow-arrow">→</div><div class="flow-box highlight">🔥 Internal FW</div><div class="flow-arrow">→</div><div class="flow-box">🏢 Internal LAN</div></div></div><div class="terms-grid"><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">Packet Filtering Firewall</span><span class="term-arrow">▼</span></div><div class="term-body">Filters traffic based on source/destination IP, port, protocol. Stateless — doesn't track connections. Fast but limited intelligence.</div></div><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">Stateful Inspection Firewall</span><span class="term-arrow">▼</span></div><div class="term-body">Tracks the state of network connections. Smarter than packet filtering — knows if a packet belongs to an established connection.</div></div><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">Next-Gen Firewall (NGFW)</span><span class="term-arrow">▼</span></div><div class="term-body">Includes deep packet inspection, application awareness, IPS, and threat intelligence. Products: Palo Alto, Fortinet, Cisco Firepower.</div></div></div></div><div class="topic"><h3>IDS vs IPS</h3><div class="diagram"><div class="diagram-title">// IDS vs IPS COMPARISON</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:10px;"><div class="flow-box" style="padding:16px;text-align:center;"><strong style="color:var(--blue-bright);">IDS — Intrusion Detection System</strong><br/><span style="color:var(--text-secondary);font-size:0.88rem;">DETECTS and ALERTS<br/>Passive — traffic still passes<br/>Like a security camera</span></div><div class="flow-box highlight" style="padding:16px;text-align:center;"><strong style="color:var(--cyan);">IPS — Intrusion Prevention System</strong><br/><span style="color:var(--text-secondary);font-size:0.88rem;">DETECTS and BLOCKS<br/>Active — stops malicious traffic<br/>Like a security guard</span></div></div></div></div><div class="topic"><h3>VPN — Virtual Private Network</h3><div class="def-box"><div class="def-label">📖 Definition</div><p>A <strong>VPN</strong> creates an encrypted tunnel over the public internet, allowing secure communication as if you were on a private network. Protects data in transit from eavesdropping.</p></div></div></div><div class="tab-content" id="t11-terms"><div class="terms-grid"><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">DMZ</span><span class="term-arrow">▼</span></div><div class="term-body">Demilitarized Zone — a network segment that sits between the internet and internal network. Public-facing servers (web, email) are placed here.</div></div><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">Network Segmentation</span><span class="term-arrow">▼</span></div><div class="term-body">Dividing a network into isolated zones to limit attacker movement. If one segment is compromised, others are protected (lateral movement prevention).</div></div><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">DDoS Attack</span><span class="term-arrow">▼</span></div><div class="term-body">Distributed Denial of Service — overwhelming a server with traffic from thousands of compromised machines to make it unavailable.</div></div><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">NAC (Network Access Control)</span><span class="term-arrow">▼</span></div><div class="term-body">Controls which devices can connect to a network, verifying they meet security requirements (patched, antivirus installed, etc.).</div></div></div></div><div class="tab-content" id="t11-interview"><div class="interview-section"><div class="interview-title">🎯 Common Interview Questions</div><ul class="q-list"><li>What is the difference between IDS and IPS?</li><li>What are the different types of firewalls?</li><li>What is a DMZ and why is it used?</li><li>How does network segmentation reduce the impact of a breach?</li><li>What is a DDoS attack and how do you mitigate it?</li></ul></div></div>`},
+  {id:12,icon:"📊",title:"Security Monitoring",tag:"MONITORING",desc:"SIEM, EDR, XDR — how threats are detected.",content:`<div class="tabs"><button class="tab-btn active" onclick="switchTab(this,'t12-learn')">📖 Learn</button><button class="tab-btn" onclick="switchTab(this,'t12-terms')">📚 Key Terms</button><button class="tab-btn" onclick="switchTab(this,'t12-interview')">🎯 Interview Prep</button></div><div class="tab-content active" id="t12-learn"><div class="topic"><h3>Why Security Monitoring?</h3><p>Organizations generate millions of events daily. Without proper monitoring, attacks can go undetected for months. The average time to detect a breach is <strong>197 days</strong>. Security monitoring aims to reduce this to minutes.</p></div><div class="topic"><h3>SIEM — Security Information & Event Management</h3><div class="def-box"><div class="def-label">📖 Definition</div><p>A <strong>SIEM</strong> collects and aggregates log data from across the entire organization (servers, firewalls, endpoints, apps), correlates events to detect threats, and generates alerts. The central brain of a SOC.</p></div><div class="diagram"><div class="diagram-title">// SIEM DATA FLOW</div><div class="flow"><div class="flow-box">Firewalls</div><div class="flow-box">Endpoints</div><div class="flow-box">Cloud Apps</div><div class="flow-box">Servers</div><div class="flow-arrow">→</div><div class="flow-box highlight">📊 SIEM<br/>(Splunk/QRadar/Sentinel)</div><div class="flow-arrow">→</div><div class="flow-box">🚨 Alert</div><div class="flow-arrow">→</div><div class="flow-box">👤 SOC Analyst</div></div></div><div class="example-box"><div class="ex-label">💡 EXAMPLE SIEM RULE</div><p>Alert if: Same user fails login 5+ times in 1 minute from different countries. This detects credential stuffing attacks that bypass lockout by distributing attempts.</p></div></div><div class="topic"><h3>EDR vs XDR</h3><div class="terms-grid"><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">EDR — Endpoint Detection & Response</span><span class="term-arrow">▼</span></div><div class="term-body">Monitors endpoint (laptop, server) activity in real-time. Detects malware, suspicious processes, lateral movement. Can isolate infected endpoint. Products: CrowdStrike Falcon, SentinelOne.</div></div><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">XDR — Extended Detection & Response</span><span class="term-arrow">▼</span></div><div class="term-body">Extends EDR to cover network, cloud, email, identity. Correlates signals across all layers for a complete threat picture. The evolution of SIEM + EDR combined.</div></div></div></div></div><div class="tab-content" id="t12-terms"><div class="terms-grid"><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">SIEM</span><span class="term-arrow">▼</span></div><div class="term-body">Security Information and Event Management — central platform for collecting, correlating, and alerting on security events.</div></div><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">Log Aggregation</span><span class="term-arrow">▼</span></div><div class="term-body">Collecting logs from multiple sources into a central location for analysis and correlation.</div></div><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">Alert Fatigue</span><span class="term-arrow">▼</span></div><div class="term-body">When analysts are overwhelmed by too many alerts (especially false positives), causing real threats to be missed. A major challenge in SOCs.</div></div><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">False Positive</span><span class="term-arrow">▼</span></div><div class="term-body">A security alert triggered by benign activity. The SIEM flagged something as an attack when it wasn't. Analysts waste time investigating.</div></div><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">SOAR</span><span class="term-arrow">▼</span></div><div class="term-body">Security Orchestration, Automation, and Response — automates repetitive SOC tasks like collecting threat intel, blocking IPs, and notifying teams.</div></div></div></div><div class="tab-content" id="t12-interview"><div class="interview-section"><div class="interview-title">🎯 Common Interview Questions</div><ul class="q-list"><li>What is a SIEM and how does it work?</li><li>What is the difference between EDR and XDR?</li><li>What is alert fatigue and how can it be reduced?</li><li>What is the difference between a false positive and a false negative in security?</li><li>Name 3 popular SIEM products and their vendors.</li><li>What is SOAR and how does it complement SIEM?</li></ul></div></div>`},
+  {id:13,icon:"🏢",title:"Security Operations Center (SOC)",tag:"SOC",desc:"SOC structure, analyst tiers, workflows, tools.",content:`<div class="tabs"><button class="tab-btn active" onclick="switchTab(this,'t13-learn')">📖 Learn</button><button class="tab-btn" onclick="switchTab(this,'t13-terms')">📚 Key Terms</button><button class="tab-btn" onclick="switchTab(this,'t13-interview')">🎯 Interview Prep</button></div><div class="tab-content active" id="t13-learn"><div class="topic"><h3>What is a SOC?</h3><div class="def-box"><div class="def-label">📖 Definition</div><p>A <strong>Security Operations Center (SOC)</strong> is a centralized unit that monitors, detects, analyzes, and responds to cybersecurity incidents 24/7. It's the nerve center of an organization's cyber defense.</p></div></div><div class="topic"><h3>SOC Analyst Tiers</h3><div class="diagram"><div class="diagram-title">// SOC TIER STRUCTURE</div><div class="flow" style="flex-direction:column;gap:8px;"><div class="flow-box" style="width:100%;text-align:center;padding:12px;"><strong>🔴 L3 — Senior Analyst / Threat Hunter</strong><br/><small style="color:var(--text-muted);">Proactive hunting, malware analysis, incident lead, threat intel, rule creation. 5+ years exp.</small></div><div class="flow-box" style="width:100%;text-align:center;padding:12px;"><strong>🟡 L2 — Incident Responder</strong><br/><small style="color:var(--text-muted);">Investigates escalated alerts, performs triage, contains incidents. 2-4 years exp.</small></div><div class="flow-box highlight" style="width:100%;text-align:center;padding:12px;"><strong>🟢 L1 — Triage Analyst</strong><br/><small style="color:var(--text-muted);">Monitors dashboards, triages alerts, separates true/false positives, escalates. Entry-level role.</small></div></div></div></div><div class="topic"><h3>SOC Workflow</h3><div class="diagram"><div class="diagram-title">// ALERT HANDLING WORKFLOW</div><div class="flow"><div class="flow-box">Alert Generated<br/>(SIEM/EDR)</div><div class="flow-arrow">→</div><div class="flow-box highlight">L1: Triage<br/>(Real or false positive?)</div><div class="flow-arrow">→</div><div class="flow-box">L2: Investigate<br/>(How did it happen?)</div><div class="flow-arrow">→</div><div class="flow-box">L3: Respond<br/>(Contain & eradicate)</div><div class="flow-arrow">→</div><div class="flow-box">Close & Document</div></div></div></div><div class="topic"><h3>Key SOC Metrics</h3><div class="tags"><span class="tag">MTTD — Mean Time to Detect</span><span class="tag">MTTR — Mean Time to Respond</span><span class="tag">Alert Volume</span><span class="tag">False Positive Rate</span><span class="tag">SLA Compliance</span></div></div></div><div class="tab-content" id="t13-terms"><div class="terms-grid"><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">SOC (Security Operations Center)</span><span class="term-arrow">▼</span></div><div class="term-body">A team/facility that monitors, detects, and responds to cybersecurity threats 24/7/365.</div></div><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">Triage</span><span class="term-arrow">▼</span></div><div class="term-body">The process of sorting security alerts by severity and determining if they are real threats (true positives) or benign activity (false positives).</div></div><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">Playbook / Runbook</span><span class="term-arrow">▼</span></div><div class="term-body">A documented, step-by-step procedure for responding to specific types of security incidents. Ensures consistent, efficient responses.</div></div><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">MTTD</span><span class="term-arrow">▼</span></div><div class="term-body">Mean Time to Detect — average time between when an attack starts and when the SOC detects it. Lower is better.</div></div><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">Threat Hunting</span><span class="term-arrow">▼</span></div><div class="term-body">Proactively searching for threats that have evaded automated detection. L3 analysts "hunt" using hypotheses and data analysis.</div></div></div></div><div class="tab-content" id="t13-interview"><div class="interview-section"><div class="interview-title">🎯 Common Interview Questions</div><ul class="q-list"><li>What is a SOC and what does an L1 analyst do day-to-day?</li><li>What tools do SOC analysts typically use?</li><li>What is the difference between a SOC alert and an incident?</li><li>What is a playbook and why is it important?</li><li>How would you handle alert fatigue in a SOC?</li><li>What are MTTD and MTTR and why do they matter?</li></ul></div></div>`},
+  {id:14,icon:"🚨",title:"Incident Response",tag:"IR",desc:"IR lifecycle: Detection → Analysis → Containment → Recovery.",content:`<div class="tabs"><button class="tab-btn active" onclick="switchTab(this,'t14-learn')">📖 Learn</button><button class="tab-btn" onclick="switchTab(this,'t14-terms')">📚 Key Terms</button><button class="tab-btn" onclick="switchTab(this,'t14-interview')">🎯 Interview Prep</button></div><div class="tab-content active" id="t14-learn"><div class="topic"><h3>What is Incident Response?</h3><div class="def-box"><div class="def-label">📖 Definition</div><p><strong>Incident Response (IR)</strong> is the organized approach to handling and managing the aftermath of a cybersecurity breach or attack. The goal is to handle it in a way that limits damage and reduces recovery time and costs.</p></div></div><div class="topic"><h3>The IR Lifecycle (NIST Framework)</h3><div class="diagram"><div class="diagram-title">// NIST INCIDENT RESPONSE LIFECYCLE</div><div class="flow" style="flex-wrap:wrap;gap:6px;"><div class="flow-box">📋 1. Preparation<br/><small>IR plan, tools, team</small></div><div class="flow-arrow">→</div><div class="flow-box highlight">🔍 2. Detection &amp; Analysis<br/><small>Identify the incident</small></div><div class="flow-arrow">→</div><div class="flow-box">🚧 3. Containment<br/><small>Stop the spread</small></div><div class="flow-arrow">→</div><div class="flow-box">🧹 4. Eradication<br/><small>Remove root cause</small></div><div class="flow-arrow">→</div><div class="flow-box">✅ 5. Recovery<br/><small>Restore operations</small></div><div class="flow-arrow">→</div><div class="flow-box">📝 6. Lessons Learned<br/><small>Improve defenses</small></div></div></div></div><div class="topic"><h3>Detailed Phase Breakdown</h3><div class="terms-grid"><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">Phase 1: Preparation</span><span class="term-arrow">▼</span></div><div class="term-body">Creating the IR plan, training the team, setting up tools (SIEM, forensics), establishing communication channels, defining roles and responsibilities BEFORE an incident occurs.</div></div><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">Phase 2: Detection & Analysis</span><span class="term-arrow">▼</span></div><div class="term-body">Identifying that an incident occurred, determining scope and severity, understanding the attack vector, preserving evidence. Answering: What happened? When? How?</div></div><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">Phase 3: Containment</span><span class="term-arrow">▼</span></div><div class="term-body">Stopping the incident from spreading. Short-term: isolate infected systems. Long-term: patch vulnerabilities. Balance: preserve evidence vs stop damage.</div></div><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">Phase 4: Eradication</span><span class="term-arrow">▼</span></div><div class="term-body">Removing malware, closing attack vectors, resetting compromised credentials, patching vulnerabilities that were exploited.</div></div><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">Phase 5: Recovery</span><span class="term-arrow">▼</span></div><div class="term-body">Restoring systems from clean backups, monitoring closely for re-infection, returning to normal operations. Validate systems are clean before reconnecting.</div></div><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">Phase 6: Lessons Learned</span><span class="term-arrow">▼</span></div><div class="term-body">Post-incident review: What happened? What was the root cause? What worked? What didn't? Update IR plan, add detection rules, improve defenses.</div></div></div></div></div><div class="tab-content" id="t14-terms"><div class="terms-grid"><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">Security Incident</span><span class="term-arrow">▼</span></div><div class="term-body">A confirmed breach or adverse event that compromises confidentiality, integrity, or availability. Not every alert is an incident.</div></div><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">Chain of Custody</span><span class="term-arrow">▼</span></div><div class="term-body">Documentation of who handled digital evidence, when, and what was done with it. Critical for legal proceedings.</div></div><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">Forensic Image</span><span class="term-arrow">▼</span></div><div class="term-body">A bit-for-bit copy of a storage device used in investigations. Preserves evidence without modifying the original.</div></div><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">CSIRT</span><span class="term-arrow">▼</span></div><div class="term-body">Computer Security Incident Response Team — the dedicated team responsible for managing security incidents.</div></div></div></div><div class="tab-content" id="t14-interview"><div class="interview-section"><div class="interview-title">🎯 Common Interview Questions</div><ul class="q-list"><li>Walk me through the incident response lifecycle.</li><li>What is the difference between containment and eradication?</li><li>How do you handle a ransomware incident?</li><li>What is chain of custody and why does it matter?</li><li>What is the first thing you should do when you detect a breach?</li><li>What tools would you use for digital forensics?</li></ul></div></div>`},
+  {id:15,icon:"🕵️",title:"Threat Intelligence",tag:"THREAT INTEL",desc:"IOCs, threat intel feeds, MITRE ATT&CK framework.",content:`<div class="tabs"><button class="tab-btn active" onclick="switchTab(this,'t15-learn')">📖 Learn</button><button class="tab-btn" onclick="switchTab(this,'t15-terms')">📚 Key Terms</button><button class="tab-btn" onclick="switchTab(this,'t15-interview')">🎯 Interview Prep</button></div><div class="tab-content active" id="t15-learn"><div class="topic"><h3>What is Threat Intelligence?</h3><div class="def-box"><div class="def-label">📖 Definition</div><p><strong>Threat Intelligence (TI)</strong> is evidence-based knowledge about existing or emerging threats to assets. It helps organizations make informed security decisions and proactively defend against known attacker TTPs.</p></div></div><div class="topic"><h3>Indicators of Compromise (IOCs)</h3><div class="def-box"><div class="def-label">📖 Definition</div><p><strong>IOCs</strong> are artifacts that indicate a system may have been compromised. Like fingerprints left at a crime scene. Used to detect and investigate attacks.</p></div><div class="tags"><span class="tag">IP Addresses (attacker's server)</span><span class="tag">Domain Names (malware C2)</span><span class="tag">File Hashes (malware SHA256)</span><span class="tag">URLs (phishing pages)</span><span class="tag">Registry Keys (persistence)</span><span class="tag">Email Headers</span></div></div><div class="topic"><h3>MITRE ATT&CK Framework</h3><div class="def-box"><div class="def-label">📖 Definition</div><p>The <strong>MITRE ATT&CK Framework</strong> is a globally-accessible knowledge base of attacker tactics and techniques based on real-world observations. It's the industry standard for understanding how attackers operate.</p></div><div class="example-box"><div class="ex-label">💡 HOW IT'S USED</div><p>Defenders map detected behaviors to ATT&CK techniques. E.g., "An attacker ran mimikatz to dump credentials" = Technique T1003 (OS Credential Dumping). This helps identify what stage of attack they're at.</p></div></div><div class="topic"><h3>Types of Threat Intelligence</h3><div class="terms-grid"><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">Strategic Intel</span><span class="term-arrow">▼</span></div><div class="term-body">High-level, for executives. "Ransomware targeting healthcare is increasing." Helps with resource allocation and policy.</div></div><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">Tactical Intel</span><span class="term-arrow">▼</span></div><div class="term-body">Attacker TTPs — how they operate. Helps security teams improve detection and response capabilities.</div></div><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">Operational Intel</span><span class="term-arrow">▼</span></div><div class="term-body">Details about specific ongoing or imminent attacks. "APT29 is actively targeting finance sector using CVE-2024-XXXX."</div></div><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">Technical Intel</span><span class="term-arrow">▼</span></div><div class="term-body">IOCs, malware hashes, C2 IPs — raw technical data that can be directly fed into security tools for automated blocking.</div></div></div></div></div><div class="tab-content" id="t15-terms"><div class="terms-grid"><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">IOC</span><span class="term-arrow">▼</span></div><div class="term-body">Indicator of Compromise — an artifact (IP, hash, domain) that suggests a system has been breached or is under attack.</div></div><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">MITRE ATT&CK</span><span class="term-arrow">▼</span></div><div class="term-body">A knowledge base of adversary tactics and techniques used in real-world attacks. Used for threat modeling, detection, and IR.</div></div><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">Threat Feed</span><span class="term-arrow">▼</span></div><div class="term-body">A stream of IOCs and threat data from external sources (VirusTotal, ISAC, commercial vendors) ingested into security tools for automated detection.</div></div><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">Dark Web Monitoring</span><span class="term-arrow">▼</span></div><div class="term-body">Monitoring dark web forums and marketplaces for stolen credentials, data leaks, and discussions about targeting your organization.</div></div></div></div><div class="tab-content" id="t15-interview"><div class="interview-section"><div class="interview-title">🎯 Common Interview Questions</div><ul class="q-list"><li>What is the difference between an IOC and an IOA (Indicator of Attack)?</li><li>What is the MITRE ATT&CK framework and how is it used?</li><li>What are the 4 types of threat intelligence?</li><li>What is a threat feed and give examples of sources?</li><li>How would you use threat intelligence in a SOC?</li></ul></div></div>`},
+  {id:16,icon:"🔎",title:"Vulnerability Management",tag:"VULN MGMT",desc:"Scanning, CVEs, CVSS scoring, risk prioritization.",content:`<div class="tabs"><button class="tab-btn active" onclick="switchTab(this,'t16-learn')">📖 Learn</button><button class="tab-btn" onclick="switchTab(this,'t16-terms')">📚 Key Terms</button><button class="tab-btn" onclick="switchTab(this,'t16-interview')">🎯 Interview Prep</button></div><div class="tab-content active" id="t16-learn"><div class="topic"><h3>What is Vulnerability Management?</h3><div class="def-box"><div class="def-label">📖 Definition</div><p><strong>Vulnerability Management</strong> is the ongoing process of identifying, evaluating, prioritizing, and remediating security vulnerabilities in systems and software.</p></div><div class="diagram"><div class="diagram-title">// VULNERABILITY MANAGEMENT CYCLE</div><div class="flow"><div class="flow-box">🔍 Discover<br/>(Scan assets)</div><div class="flow-arrow">→</div><div class="flow-box highlight">📊 Prioritize<br/>(CVSS score + risk)</div><div class="flow-arrow">→</div><div class="flow-box">🔧 Remediate<br/>(Patch/mitigate)</div><div class="flow-arrow">→</div><div class="flow-box">✅ Verify<br/>(Rescan)</div><div class="flow-arrow">→</div><div class="flow-box">📋 Report</div></div></div></div><div class="topic"><h3>CVE and CVSS</h3><div class="terms-grid"><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">CVE (Common Vulnerabilities & Exposures)</span><span class="term-arrow">▼</span></div><div class="term-body">A standard identifier for publicly known security vulnerabilities. Format: CVE-YEAR-NUMBER (e.g., CVE-2021-44228 = Log4Shell). Published in the National Vulnerability Database (NVD).</div></div><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">CVSS Score</span><span class="term-arrow">▼</span></div><div class="term-body">Common Vulnerability Scoring System — 0-10 scale rating vulnerability severity. 0-3.9: Low | 4-6.9: Medium | 7-8.9: High | 9-10: Critical. Used to prioritize patching.</div></div></div></div><div class="topic"><h3>Vulnerability Scanning Tools</h3><div class="terms-grid"><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">Nessus (Tenable)</span><span class="term-arrow">▼</span></div><div class="term-body">Industry-leading vulnerability scanner. Scans networks and systems for 50,000+ vulnerabilities. Used by enterprise security teams.</div></div><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">OpenVAS</span><span class="term-arrow">▼</span></div><div class="term-body">Free, open-source vulnerability scanner. Good for learning and smaller organizations.</div></div><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">Nmap</span><span class="term-arrow">▼</span></div><div class="term-body">Network mapper — discovers hosts, open ports, and services. Not a full vuln scanner but essential first step. Nmap -sV -sC for basic scanning.</div></div></div></div></div><div class="tab-content" id="t16-terms"><div class="terms-grid"><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">CVE</span><span class="term-arrow">▼</span></div><div class="term-body">Common Vulnerabilities and Exposures — a unique identifier for a publicly known vulnerability.</div></div><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">CVSS</span><span class="term-arrow">▼</span></div><div class="term-body">Common Vulnerability Scoring System — a 0-10 numerical score representing the severity of a vulnerability.</div></div><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">Patch</span><span class="term-arrow">▼</span></div><div class="term-body">A software update that fixes a known vulnerability. Applying patches promptly is one of the most effective security practices.</div></div><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">Attack Surface</span><span class="term-arrow">▼</span></div><div class="term-body">The total set of points in an environment where an attacker can enter. Vulnerability management reduces the attack surface.</div></div></div></div><div class="tab-content" id="t16-interview"><div class="interview-section"><div class="interview-title">🎯 Common Interview Questions</div><ul class="q-list"><li>What is the vulnerability management lifecycle?</li><li>What is a CVE and what is a CVSS score?</li><li>How do you prioritize which vulnerabilities to patch first?</li><li>What is the difference between a vulnerability scan and a penetration test?</li><li>What tools are commonly used for vulnerability scanning?</li></ul></div></div>`},
+  {id:17,icon:"⚔️",title:"Penetration Testing Basics",tag:"RED TEAM",desc:"Pentest phases, methodologies, tools, reporting.",content:`<div class="tabs"><button class="tab-btn active" onclick="switchTab(this,'t17-learn')">📖 Learn</button><button class="tab-btn" onclick="switchTab(this,'t17-terms')">📚 Key Terms</button><button class="tab-btn" onclick="switchTab(this,'t17-interview')">🎯 Interview Prep</button></div><div class="tab-content active" id="t17-learn"><div class="topic"><h3>What is Penetration Testing?</h3><div class="def-box"><div class="def-label">📖 Definition</div><p><strong>Penetration Testing (Pentesting)</strong> is an authorized, simulated cyberattack performed to evaluate the security of a system. The goal is to find vulnerabilities BEFORE real attackers do — and provide a report to fix them.</p></div><div class="example-box"><div class="ex-label">💡 ANALOGY</div><p>Hiring a locksmith to try breaking into your house to find weak points — with your permission — and then giving you a report on how to improve your locks.</p></div></div><div class="topic"><h3>Pentest Types</h3><div class="terms-grid"><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">Black Box</span><span class="term-arrow">▼</span></div><div class="term-body">Tester has no prior knowledge of the target. Simulates an external attacker. Most realistic but time-consuming.</div></div><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">White Box</span><span class="term-arrow">▼</span></div><div class="term-body">Tester has full access to source code, architecture, credentials. Most comprehensive coverage. Also called "Crystal Box".</div></div><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">Grey Box</span><span class="term-arrow">▼</span></div><div class="term-body">Partial knowledge (e.g., regular user credentials). Simulates an insider threat or a partially informed attacker. Most common type.</div></div></div></div><div class="topic"><h3>Pentest Phases</h3><div class="diagram"><div class="diagram-title">// PENETRATION TESTING METHODOLOGY</div><div class="flow" style="flex-wrap:wrap;gap:6px;"><div class="flow-box">1. Scoping &amp;<br/>Rules of Engagement</div><div class="flow-arrow">→</div><div class="flow-box highlight">2. Reconnaissance<br/>(OSINT, scanning)</div><div class="flow-arrow">→</div><div class="flow-box">3. Scanning<br/>(Nmap, Nessus)</div><div class="flow-arrow">→</div><div class="flow-box">4. Exploitation<br/>(Metasploit, manual)</div><div class="flow-arrow">→</div><div class="flow-box">5. Post-Exploitation<br/>(Priv esc, pivot)</div><div class="flow-arrow">→</div><div class="flow-box">6. Reporting</div></div></div></div><div class="topic"><h3>Key Pentest Tools</h3><div class="tags"><span class="tag">Kali Linux (OS)</span><span class="tag red">Metasploit (exploitation)</span><span class="tag">Nmap (scanning)</span><span class="tag red">Burp Suite (web)</span><span class="tag">Wireshark (packet capture)</span><span class="tag red">John the Ripper (passwords)</span><span class="tag">Mimikatz (creds)</span><span class="tag red">sqlmap (SQL injection)</span></div></div></div><div class="tab-content" id="t17-terms"><div class="terms-grid"><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">Penetration Test</span><span class="term-arrow">▼</span></div><div class="term-body">An authorized, simulated cyberattack to identify exploitable vulnerabilities before real attackers do.</div></div><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">OSINT</span><span class="term-arrow">▼</span></div><div class="term-body">Open Source Intelligence — gathering information about a target from publicly available sources (LinkedIn, DNS records, Shodan, job postings).</div></div><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">Lateral Movement</span><span class="term-arrow">▼</span></div><div class="term-body">After gaining initial access, moving sideways through the network to access more systems and data. Attackers pivot from one machine to another.</div></div><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">Privilege Escalation</span><span class="term-arrow">▼</span></div><div class="term-body">Gaining higher permissions than initially obtained. Local priv esc: user → admin. Domain priv esc: admin → domain admin.</div></div><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">Scope</span><span class="term-arrow">▼</span></div><div class="term-body">The agreed-upon boundaries of a pentest — which systems, IP ranges, applications are authorized for testing. Never go out of scope.</div></div></div></div><div class="tab-content" id="t17-interview"><div class="interview-section"><div class="interview-title">🎯 Common Interview Questions</div><ul class="q-list"><li>What are the phases of a penetration test?</li><li>What is the difference between black box, white box, and grey box testing?</li><li>What is OSINT and how is it used in reconnaissance?</li><li>What is lateral movement and how can it be detected?</li><li>What tools would you use for web application pentesting?</li><li>What is the difference between a vulnerability scan and a pentest?</li></ul></div></div>`},
+  {id:18,icon:"🎭",title:"Social Engineering",tag:"HUMAN ATTACKS",desc:"Phishing, spear phishing, pretexting, vishing, baiting.",content:`<div class="tabs"><button class="tab-btn active" onclick="switchTab(this,'t18-learn')">📖 Learn</button><button class="tab-btn" onclick="switchTab(this,'t18-terms')">📚 Key Terms</button><button class="tab-btn" onclick="switchTab(this,'t18-interview')">🎯 Interview Prep</button></div><div class="tab-content active" id="t18-learn"><div class="topic"><h3>What is Social Engineering?</h3><div class="def-box"><div class="def-label">📖 Definition</div><p><strong>Social Engineering</strong> is the manipulation of people — rather than systems — into revealing confidential information or performing actions that compromise security. Humans are often the weakest link in security.</p></div><div class="warn-box"><div class="warn-label">⚠️ KEY STAT</div><p>Over <strong>90% of successful cyberattacks</strong> begin with a social engineering technique, most commonly phishing. Technical controls can't fully protect against human manipulation.</p></div></div><div class="topic"><h3>Types of Social Engineering Attacks</h3><div class="terms-grid"><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">🎣 Phishing</span><span class="term-arrow">▼</span></div><div class="term-body"><strong>Definition:</strong> Mass email campaign impersonating a trusted entity to steal credentials or install malware.<br/><strong>Example:</strong> Fake "Your account will be suspended" email from "PayPal" with a link to a fake site.</div></div><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">🎯 Spear Phishing</span><span class="term-arrow">▼</span></div><div class="term-body"><strong>Definition:</strong> Highly targeted phishing using personal information about the victim.<br/><strong>Example:</strong> Email to CFO "Hi John, per our call yesterday, please transfer $50K to this vendor account." Attacker researched LinkedIn first.</div></div><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">🐋 Whaling</span><span class="term-arrow">▼</span></div><div class="term-body">Spear phishing targeting C-level executives (CEO, CFO, CTO). High reward attacks. Also called "CEO Fraud" or "Business Email Compromise (BEC)".</div></div><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">🎭 Pretexting</span><span class="term-arrow">▼</span></div><div class="term-body">Creating a fabricated scenario (pretext) to gain trust and extract information. Example: Calling IT help desk pretending to be an employee locked out.</div></div><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">🎁 Baiting</span><span class="term-arrow">▼</span></div><div class="term-body">Leaving infected USB drives in public places hoping someone will plug them in. Like leaving candy with a hook in it.</div></div><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">📞 Vishing</span><span class="term-arrow">▼</span></div><div class="term-body">Voice phishing — phone call impersonating IRS, bank, tech support, or IT department to extract sensitive information.</div></div></div></div></div><div class="tab-content" id="t18-terms"><div class="terms-grid"><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">Phishing</span><span class="term-arrow">▼</span></div><div class="term-body">Mass email impersonation attack designed to steal credentials or deploy malware.</div></div><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">BEC (Business Email Compromise)</span><span class="term-arrow">▼</span></div><div class="term-body">Sophisticated scam targeting organizations to make fraudulent wire transfers or share sensitive data. Often impersonates executives.</div></div><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">Smishing</span><span class="term-arrow">▼</span></div><div class="term-body">SMS phishing — malicious text messages impersonating banks, delivery companies, or government agencies with fraudulent links.</div></div><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">Quid Pro Quo</span><span class="term-arrow">▼</span></div><div class="term-body">Offering something in exchange for information/access. E.g., "Free tech support" in exchange for remote access credentials.</div></div></div></div><div class="tab-content" id="t18-interview"><div class="interview-section"><div class="interview-title">🎯 Common Interview Questions</div><ul class="q-list"><li>What is the difference between phishing and spear phishing?</li><li>What is Business Email Compromise (BEC)?</li><li>How would you train employees to recognize phishing?</li><li>What is pretexting and give an example?</li><li>Why is social engineering effective even against well-secured organizations?</li></ul></div></div>`},
+  {id:19,icon:"📜",title:"Governance, Risk & Compliance",tag:"GRC",desc:"ISO 27001, NIST CSF, PCI DSS, risk management.",content:`<div class="tabs"><button class="tab-btn active" onclick="switchTab(this,'t19-learn')">📖 Learn</button><button class="tab-btn" onclick="switchTab(this,'t19-terms')">📚 Key Terms</button><button class="tab-btn" onclick="switchTab(this,'t19-interview')">🎯 Interview Prep</button></div><div class="tab-content active" id="t19-learn"><div class="topic"><h3>What is GRC?</h3><div class="def-box"><div class="def-label">📖 Definition</div><p><strong>GRC (Governance, Risk, and Compliance)</strong> is the integrated approach to aligning IT with business goals, managing risk, and meeting regulatory requirements. It's the business side of cybersecurity.</p></div></div><div class="topic"><h3>Key Security Frameworks</h3><div class="terms-grid"><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">ISO 27001</span><span class="term-arrow">▼</span></div><div class="term-body"><strong>Definition:</strong> International standard for Information Security Management Systems (ISMS). Organizations can get certified to demonstrate their security practices meet global standards. Highly respected worldwide.</div></div><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">NIST Cybersecurity Framework</span><span class="term-arrow">▼</span></div><div class="term-body"><strong>Definition:</strong> US government framework with 5 functions: <strong>Identify → Protect → Detect → Respond → Recover</strong>. Widely used in US critical infrastructure and adopted globally.</div></div><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">PCI DSS</span><span class="term-arrow">▼</span></div><div class="term-body"><strong>Definition:</strong> Payment Card Industry Data Security Standard. Mandatory for ANY organization processing credit card payments. 12 requirements covering encryption, access control, monitoring, etc.</div></div><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">GDPR</span><span class="term-arrow">▼</span></div><div class="term-body">General Data Protection Regulation — EU law governing personal data protection. Fines up to 4% of global revenue. Requires breach notification within 72 hours.</div></div><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">SOC 2</span><span class="term-arrow">▼</span></div><div class="term-body">A framework for SaaS companies to demonstrate that their systems are secure, available, and confidential. Very important for cloud service providers.</div></div><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">HIPAA</span><span class="term-arrow">▼</span></div><div class="term-body">Health Insurance Portability and Accountability Act — US law protecting health information (PHI). Mandatory for healthcare organizations and their vendors.</div></div></div></div></div><div class="tab-content" id="t19-terms"><div class="terms-grid"><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">Risk Assessment</span><span class="term-arrow">▼</span></div><div class="term-body">Identifying and evaluating risks to determine their likelihood and impact, then deciding how to treat them (accept, mitigate, transfer, avoid).</div></div><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">Compliance</span><span class="term-arrow">▼</span></div><div class="term-body">Meeting the requirements of external regulations and standards (PCI DSS, GDPR, HIPAA). Non-compliance results in fines, legal action, or loss of business.</div></div><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">Security Policy</span><span class="term-arrow">▼</span></div><div class="term-body">A formal document defining an organization's security requirements, responsibilities, and acceptable use of IT resources.</div></div><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">Audit</span><span class="term-arrow">▼</span></div><div class="term-body">A systematic examination of security controls to verify compliance with policies and standards. Internal audits vs. external third-party audits.</div></div></div></div><div class="tab-content" id="t19-interview"><div class="interview-section"><div class="interview-title">🎯 Common Interview Questions</div><ul class="q-list"><li>What is the NIST Cybersecurity Framework and its 5 functions?</li><li>What is the difference between ISO 27001 and SOC 2?</li><li>What is PCI DSS and who must comply?</li><li>What is risk management and what are the 4 risk treatment options?</li><li>What is GDPR and what are its key requirements?</li></ul></div></div>`},
+  {id:20,icon:"☁️",title:"Cloud Security",tag:"CLOUD",desc:"IaaS/PaaS/SaaS, shared responsibility model, cloud risks.",content:`<div class="tabs"><button class="tab-btn active" onclick="switchTab(this,'t20-learn')">📖 Learn</button><button class="tab-btn" onclick="switchTab(this,'t20-terms')">📚 Key Terms</button><button class="tab-btn" onclick="switchTab(this,'t20-interview')">🎯 Interview Prep</button></div><div class="tab-content active" id="t20-learn"><div class="topic"><h3>Cloud Computing Basics</h3><div class="def-box"><div class="def-label">📖 Definition</div><p><strong>Cloud Computing</strong> is the delivery of computing services (servers, storage, databases, software) over the internet. Major providers: AWS, Microsoft Azure, Google Cloud Platform (GCP).</p></div><div class="diagram"><div class="diagram-title">// CLOUD SERVICE MODELS</div><div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:10px;"><div class="flow-box" style="text-align:center;padding:16px;"><strong style="color:var(--blue-bright);">IaaS</strong><br/>(Infrastructure as a Service)<br/><small style="color:var(--text-muted);">Rent virtual machines, storage, networking. You manage OS and up. Example: AWS EC2</small></div><div class="flow-box highlight" style="text-align:center;padding:16px;"><strong style="color:var(--cyan);">PaaS</strong><br/>(Platform as a Service)<br/><small style="color:var(--text-muted);">Rent platform to build apps. You manage only your app and data. Example: Heroku, AWS Lambda</small></div><div class="flow-box" style="text-align:center;padding:16px;"><strong style="color:var(--success);">SaaS</strong><br/>(Software as a Service)<br/><small style="color:var(--text-muted);">Fully managed software. You just use it. Example: Gmail, Salesforce, Office 365</small></div></div></div></div><div class="topic"><h3>Shared Responsibility Model</h3><div class="def-box"><div class="def-label">📖 Definition</div><p>The <strong>Shared Responsibility Model</strong> defines what the cloud provider secures vs. what the customer secures. Most cloud misconfigurations happen because customers misunderstand their responsibilities.</p></div><div class="example-box"><div class="ex-label">💡 EXAMPLE (AWS)</div><p><strong>AWS is responsible for:</strong> Physical data centers, hypervisor, network infrastructure.<br/><strong>Customer is responsible for:</strong> Data encryption, access controls, OS patching (IaaS), application security, who has access.</p></div></div><div class="topic"><h3>Top Cloud Security Risks</h3><div class="tags"><span class="tag red">Misconfigured S3 buckets (public data exposure)</span><span class="tag red">Overly permissive IAM roles</span><span class="tag red">Lack of MFA on cloud accounts</span><span class="tag red">Unencrypted data at rest/transit</span><span class="tag red">Shadow IT (unauthorized cloud services)</span><span class="tag red">Insecure APIs</span></div></div></div><div class="tab-content" id="t20-terms"><div class="terms-grid"><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">Shared Responsibility Model</span><span class="term-arrow">▼</span></div><div class="term-body">Division of security responsibilities between cloud provider and customer. Provider secures infrastructure; customer secures their data and configurations.</div></div><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">CSPM</span><span class="term-arrow">▼</span></div><div class="term-body">Cloud Security Posture Management — continuously monitors cloud configurations for misconfigurations and compliance violations.</div></div><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">IAM (Cloud)</span><span class="term-arrow">▼</span></div><div class="term-body">Identity and Access Management — controls who can access cloud resources. Misconfigured IAM is the #1 cause of cloud breaches.</div></div><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">Container Security</span><span class="term-arrow">▼</span></div><div class="term-body">Securing Docker containers and Kubernetes clusters. Vulnerable container images, exposed Docker sockets, and over-privileged containers are common risks.</div></div></div></div><div class="tab-content" id="t20-interview"><div class="interview-section"><div class="interview-title">🎯 Common Interview Questions</div><ul class="q-list"><li>What is the shared responsibility model in cloud security?</li><li>What is the difference between IaaS, PaaS, and SaaS?</li><li>What are the most common cloud security misconfigurations?</li><li>How does cloud IAM differ from traditional on-premise IAM?</li><li>What is CSPM and why is it important?</li></ul></div></div>`},
+  {id:21,icon:"🖥️",title:"Endpoint Security",tag:"ENDPOINT",desc:"Antivirus, EDR, hardening, mobile security.",content:`<div class="tabs"><button class="tab-btn active" onclick="switchTab(this,'t21-learn')">📖 Learn</button><button class="tab-btn" onclick="switchTab(this,'t21-terms')">📚 Key Terms</button><button class="tab-btn" onclick="switchTab(this,'t21-interview')">🎯 Interview Prep</button></div><div class="tab-content active" id="t21-learn"><div class="topic"><h3>What is an Endpoint?</h3><div class="def-box"><div class="def-label">📖 Definition</div><p>An <strong>endpoint</strong> is any device that connects to a corporate network — laptops, desktops, smartphones, tablets, servers, IoT devices. Every endpoint is a potential attack entry point.</p></div></div><div class="topic"><h3>Antivirus vs EDR</h3><div class="diagram"><div class="diagram-title">// ANTIVIRUS vs EDR COMPARISON</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:10px;"><div class="flow-box" style="padding:16px;"><strong style="color:var(--blue-bright);">🛡️ Antivirus (AV)</strong><br/><small>Signature-based detection<br/>Scans for known malware<br/>Reactive — misses new threats<br/>Examples: Windows Defender, Norton</small></div><div class="flow-box highlight" style="padding:16px;"><strong style="color:var(--cyan);">🔬 EDR</strong><br/><small>Behavioral analysis + signatures<br/>Detects unknown/fileless malware<br/>Records all activity for investigation<br/>Examples: CrowdStrike, SentinelOne</small></div></div></div></div><div class="topic"><h3>Endpoint Hardening</h3><div class="def-box"><div class="def-label">📖 Definition</div><p><strong>Hardening</strong> means reducing the attack surface of a system by removing unnecessary software, disabling unused services, applying security configurations, and keeping systems patched.</p></div><div class="tags"><span class="tag green">Disable unnecessary services/ports</span><span class="tag green">Enable automatic updates</span><span class="tag green">Use full disk encryption (BitLocker/FileVault)</span><span class="tag green">Enforce screen lock and strong passwords</span><span class="tag green">Use application whitelisting</span><span class="tag green">Enable host-based firewall</span></div></div></div><div class="tab-content" id="t21-terms"><div class="terms-grid"><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">EDR</span><span class="term-arrow">▼</span></div><div class="term-body">Endpoint Detection and Response — advanced security software that monitors endpoint activity, detects threats using behavioral analysis, and enables investigation and response.</div></div><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">Hardening</span><span class="term-arrow">▼</span></div><div class="term-body">Reducing the attack surface of a system by removing unnecessary components, applying secure configurations, and following security benchmarks (CIS Benchmarks).</div></div><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">Application Whitelisting</span><span class="term-arrow">▼</span></div><div class="term-body">Only allowing pre-approved applications to run. Blocks malware and unauthorized software by default. Strong but operationally complex to maintain.</div></div></div></div><div class="tab-content" id="t21-interview"><div class="interview-section"><div class="interview-title">🎯 Common Interview Questions</div><ul class="q-list"><li>What is the difference between antivirus and EDR?</li><li>What is endpoint hardening and why is it important?</li><li>What is application whitelisting?</li><li>How does CrowdStrike Falcon detect threats?</li><li>What security measures would you apply to a new laptop?</li></ul></div></div>`},
+  {id:22,icon:"🗄️",title:"Data Security",tag:"DATA PROTECTION",desc:"Data classification, DLP, encryption at rest/transit.",content:`<div class="tabs"><button class="tab-btn active" onclick="switchTab(this,'t22-learn')">📖 Learn</button><button class="tab-btn" onclick="switchTab(this,'t22-terms')">📚 Key Terms</button><button class="tab-btn" onclick="switchTab(this,'t22-interview')">🎯 Interview Prep</button></div><div class="tab-content active" id="t22-learn"><div class="topic"><h3>Data Classification</h3><div class="def-box"><div class="def-label">📖 Definition</div><p><strong>Data Classification</strong> is organizing data into categories based on sensitivity and the level of protection required. You can't protect what you don't know you have.</p></div><div class="diagram"><div class="diagram-title">// DATA CLASSIFICATION LEVELS</div><div class="flow" style="flex-direction:column;gap:6px;"><div class="flow-box" style="text-align:center;background:rgba(255,50,50,0.15);border-color:rgba(255,50,50,0.4);">🔴 CONFIDENTIAL / TOP SECRET — Credit cards, passwords, health records</div><div class="flow-box" style="text-align:center;background:rgba(255,150,0,0.1);border-color:rgba(255,150,0,0.3);">🟡 RESTRICTED / PRIVATE — Employee records, financial data, business strategies</div><div class="flow-box" style="text-align:center;background:rgba(0,180,255,0.1);border-color:rgba(0,180,255,0.25);">🔵 INTERNAL — Company emails, internal documentation, procedures</div><div class="flow-box" style="text-align:center;">⚪ PUBLIC — Marketing materials, press releases, public website content</div></div></div></div><div class="topic"><h3>DLP — Data Loss Prevention</h3><div class="def-box"><div class="def-label">📖 Definition</div><p><strong>DLP</strong> is a set of tools and policies that detect and prevent sensitive data from leaving the organization through unauthorized channels (email, USB, cloud upload).</p></div><div class="example-box"><div class="ex-label">💡 EXAMPLE</div><p>DLP blocks an employee from emailing a spreadsheet containing 1000 credit card numbers. It detects the pattern and blocks/alerts before the data leaves.</p></div></div></div><div class="tab-content" id="t22-terms"><div class="terms-grid"><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">DLP</span><span class="term-arrow">▼</span></div><div class="term-body">Data Loss Prevention — technology that detects and prevents sensitive data from being transmitted outside the organization unauthorized.</div></div><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">Encryption at Rest</span><span class="term-arrow">▼</span></div><div class="term-body">Encrypting stored data so it's unreadable if the storage media is stolen. BitLocker, FileVault, and AWS S3 encryption are examples.</div></div><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">Encryption in Transit</span><span class="term-arrow">▼</span></div><div class="term-body">Encrypting data while it travels over a network. HTTPS/TLS ensures nobody can intercept and read data in transit.</div></div><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">Data Sovereignty</span><span class="term-arrow">▼</span></div><div class="term-body">The concept that data is subject to the laws of the country where it physically resides. Important for multinational companies and cloud storage.</div></div></div></div><div class="tab-content" id="t22-interview"><div class="interview-section"><div class="interview-title">🎯 Common Interview Questions</div><ul class="q-list"><li>What are the 4 levels of data classification?</li><li>What is DLP and how does it work?</li><li>What is the difference between encryption at rest and encryption in transit?</li><li>What is data sovereignty and why does it matter?</li><li>How do you protect against insider data theft?</li></ul></div></div>`},
+  {id:23,icon:"🧠",title:"Security Awareness",tag:"HUMAN FACTOR",desc:"Security training, password hygiene, phishing awareness.",content:`<div class="tabs"><button class="tab-btn active" onclick="switchTab(this,'t23-learn')">📖 Learn</button><button class="tab-btn" onclick="switchTab(this,'t23-terms')">📚 Key Terms</button><button class="tab-btn" onclick="switchTab(this,'t23-interview')">🎯 Interview Prep</button></div><div class="tab-content active" id="t23-learn"><div class="topic"><h3>The Human Factor in Security</h3><div class="def-box"><div class="def-label">📖 Definition</div><p><strong>Security Awareness</strong> is the knowledge and attitude employees have about protecting organizational assets. Humans are the most frequently exploited vulnerability in any organization's security posture.</p></div></div><div class="topic"><h3>Password Best Practices</h3><div class="tags"><span class="tag green">Minimum 16 characters</span><span class="tag green">Use a passphrase ("Purple!Elephant$Running42")</span><span class="tag green">Unique password per site</span><span class="tag green">Use a password manager (Bitwarden, 1Password)</span><span class="tag green">Enable MFA everywhere</span><span class="tag red">Never reuse passwords</span><span class="tag red">Never share passwords</span><span class="tag red">Never use personal info in passwords</span></div></div><div class="topic"><h3>Phishing Identification — Red Flags</h3><div class="warn-box"><div class="warn-label">⚠️ HOW TO SPOT PHISHING</div><p>🚩 Urgency: "Act NOW or your account will be deleted!"<br/>🚩 Suspicious sender domain: support@paypa1.com (note the "1")<br/>🚩 Mismatched URLs: hover shows different link than displayed<br/>🚩 Grammar/spelling errors<br/>🚩 Unexpected attachments<br/>🚩 Asking for credentials/payment via email</p></div></div></div><div class="tab-content" id="t23-terms"><div class="terms-grid"><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">Security Awareness Training</span><span class="term-arrow">▼</span></div><div class="term-body">Programs that educate employees about security threats, policies, and best practices to reduce human error and social engineering success rates.</div></div><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">Password Manager</span><span class="term-arrow">▼</span></div><div class="term-body">A tool that securely stores and generates strong, unique passwords for each site. Eliminates the need to remember multiple passwords. Examples: Bitwarden, 1Password, LastPass.</div></div><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">Phishing Simulation</span><span class="term-arrow">▼</span></div><div class="term-body">Sending fake phishing emails to employees to test their awareness, identify vulnerable individuals, and provide targeted training to those who fail.</div></div></div></div><div class="tab-content" id="t23-interview"><div class="interview-section"><div class="interview-title">🎯 Common Interview Questions</div><ul class="q-list"><li>How would you improve security awareness in an organization?</li><li>What makes a strong password policy?</li><li>How do you identify a phishing email?</li><li>What is a phishing simulation and how is it run?</li><li>Why is the human element the weakest link in security?</li></ul></div></div>`},
+  {id:24,icon:"🛠️",title:"Cybersecurity Tools Overview",tag:"TOOLS",desc:"Nmap, Wireshark, Burp Suite, Metasploit, SIEM platforms.",content:`<div class="tabs"><button class="tab-btn active" onclick="switchTab(this,'t24-learn')">📖 Learn</button><button class="tab-btn" onclick="switchTab(this,'t24-terms')">📚 Key Terms</button><button class="tab-btn" onclick="switchTab(this,'t24-interview')">🎯 Interview Prep</button></div><div class="tab-content active" id="t24-learn"><div class="topic"><h3>Essential Security Tools Every Pro Knows</h3><div class="terms-grid"><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">🗺️ Nmap</span><span class="term-arrow">▼</span></div><div class="term-body"><strong>Use:</strong> Network discovery, port scanning, OS detection.<br/><strong>Example:</strong> <code>nmap -sV -sC -A 192.168.1.0/24</code> discovers all hosts, open ports, and services on a network. First tool used in any pentest.</div></div><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">🦈 Wireshark</span><span class="term-arrow">▼</span></div><div class="term-body"><strong>Use:</strong> Capture and analyze network packets in real-time.<br/><strong>Example:</strong> Filter HTTP traffic to see credentials sent in plaintext. Use filter: <code>http.request.method == POST</code></div></div><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">🕷️ Burp Suite</span><span class="term-arrow">▼</span></div><div class="term-body"><strong>Use:</strong> Web application security testing. Intercept, modify, and replay HTTP requests. Find XSS, SQLi, IDOR, SSRF.<br/><strong>Used by:</strong> Every web pentester globally. Free community edition available.</div></div><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">💣 Metasploit</span><span class="term-arrow">▼</span></div><div class="term-body"><strong>Use:</strong> Exploitation framework. Contains hundreds of exploits for known CVEs. Used in pentesting and CTFs.<br/><strong>Example:</strong> Use EternalBlue module to exploit MS17-010 (WannaCry vulnerability).</div></div><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">📊 Splunk / QRadar / Sentinel</span><span class="term-arrow">▼</span></div><div class="term-body"><strong>Use:</strong> SIEM platforms for log collection, correlation, alerting.<br/><strong>Splunk:</strong> Most popular. Uses SPL (Search Processing Language) for queries.<br/><strong>Microsoft Sentinel:</strong> Cloud-native SIEM, popular in Azure environments.</div></div><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">🔐 Hashcat / John the Ripper</span><span class="term-arrow">▼</span></div><div class="term-body"><strong>Use:</strong> Password cracking. Test password strength by attempting to crack hashed passwords using wordlists, brute force, or rule-based attacks.</div></div></div></div></div><div class="tab-content" id="t24-terms"><div class="terms-grid"><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">Nmap</span><span class="term-arrow">▼</span></div><div class="term-body">Network Mapper — free open-source tool for network discovery and security auditing. Can identify hosts, services, OS, and vulnerabilities.</div></div><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">Wireshark</span><span class="term-arrow">▼</span></div><div class="term-body">World's most popular network protocol analyzer. Captures live packets and lets you filter, analyze, and troubleshoot network traffic.</div></div><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">Burp Suite</span><span class="term-arrow">▼</span></div><div class="term-body">Integrated platform for web application security testing. Includes proxy, scanner, intruder, repeater, and more.</div></div><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">Metasploit</span><span class="term-arrow">▼</span></div><div class="term-body">An open-source penetration testing framework with a massive library of exploits, payloads, and auxiliary modules.</div></div></div></div><div class="tab-content" id="t24-interview"><div class="interview-section"><div class="interview-title">🎯 Common Interview Questions</div><ul class="q-list"><li>What is Nmap used for? Give an example command.</li><li>What is Wireshark and how would you use it to identify threats?</li><li>What is Burp Suite and what is its proxy feature?</li><li>What SIEM tools have you used? How do you write queries in Splunk?</li><li>What is Metasploit and how is it used responsibly?</li></ul></div></div>`},
+  {id:25,icon:"🚀",title:"Cybersecurity Career Paths",tag:"CAREERS",desc:"Blue Team, Red Team, Purple Team, certifications & roadmap.",content:`<div class="tabs"><button class="tab-btn active" onclick="switchTab(this,'t25-learn')">📖 Learn</button><button class="tab-btn" onclick="switchTab(this,'t25-terms')">📚 Key Terms</button><button class="tab-btn" onclick="switchTab(this,'t25-interview')">🎯 Interview Prep</button></div><div class="tab-content active" id="t25-learn"><div class="topic"><h3>Blue Team vs Red Team</h3><div class="diagram"><div class="diagram-title">// TEAM COLORS IN CYBERSECURITY</div><div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:10px;"><div class="flow-box" style="text-align:center;padding:16px;border-color:rgba(0,100,220,0.5);"><strong style="color:#4488ff;">🔵 BLUE TEAM</strong><br/><small>Defenders<br/>SOC Analyst, IR, Threat Hunter<br/>Monitor, Detect, Respond<br/>"We protect the castle"</small></div><div class="flow-box highlight" style="text-align:center;padding:16px;"><strong style="color:#cc88ff;">🟣 PURPLE TEAM</strong><br/><small>Bridge both<br/>Improve defenses using<br/>red team findings<br/>"Collaboration"</small></div><div class="flow-box" style="text-align:center;padding:16px;border-color:rgba(220,50,50,0.5);"><strong style="color:#ff6666;">🔴 RED TEAM</strong><br/><small>Attackers (ethical)<br/>Pentesters, Bug Hunters<br/>Find weaknesses<br/>"We attack the castle"</small></div></div></div></div><div class="topic"><h3>Career Roadmap</h3><div class="diagram"><div class="diagram-title">// BEGINNER → EXPERT ROADMAP</div><div class="flow" style="flex-direction:column;gap:8px;"><div class="flow-box" style="text-align:center;background:rgba(0,180,100,0.1);border-color:rgba(0,200,100,0.3);">🌱 FOUNDATIONS — Networking, OS, Security+, Linux basics</div><div class="flow-box" style="text-align:center;">🔵 ENTRY — L1 SOC Analyst, Help Desk with Security, Junior Pentester</div><div class="flow-box highlight" style="text-align:center;">⚡ MID — L2/L3 SOC, Security Engineer, Pentester, Cloud Security Analyst</div><div class="flow-box" style="text-align:center;background:rgba(255,170,0,0.1);border-color:rgba(255,170,0,0.3);">🏆 SENIOR — Threat Hunter, Security Architect, CISO, Red Team Lead</div></div></div></div><div class="topic"><h3>Key Certifications</h3><div class="terms-grid"><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">CompTIA Security+ (Beginner)</span><span class="term-arrow">▼</span></div><div class="term-body">The most popular entry-level security certification. Vendor-neutral. Recognized globally. Start here if you're new.</div></div><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">CEH — Certified Ethical Hacker</span><span class="term-arrow">▼</span></div><div class="term-body">EC-Council certification covering ethical hacking techniques. Good for getting into offensive security roles.</div></div><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">OSCP (Intermediate-Advanced)</span><span class="term-arrow">▼</span></div><div class="term-body">Offensive Security Certified Professional — hands-on 24-hour hacking exam. The gold standard for penetration testers. Highly respected.</div></div><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">CISSP (Senior)</span><span class="term-arrow">▼</span></div><div class="term-body">Certified Information Systems Security Professional — advanced certification for experienced security managers. Requires 5 years experience.</div></div><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">AWS Security Specialty</span><span class="term-arrow">▼</span></div><div class="term-body">Cloud security certification from Amazon. Highly valued as cloud adoption grows. Good earning potential.</div></div><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">Blue Team Level 1 (BTL1)</span><span class="term-arrow">▼</span></div><div class="term-body">Practical SOC analyst certification. Covers SIEM, phishing analysis, log analysis, network forensics. Excellent for beginners targeting SOC roles.</div></div></div></div></div><div class="tab-content" id="t25-terms"><div class="terms-grid"><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">Red Team</span><span class="term-arrow">▼</span></div><div class="term-body">A group that simulates adversary attacks to test an organization's defenses. Offensive security professionals.</div></div><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">Blue Team</span><span class="term-arrow">▼</span></div><div class="term-body">The defensive team — SOC analysts, incident responders, threat hunters — who detect and respond to attacks.</div></div><div class="term-item" onclick="toggleTerm(this)"><div class="term-header"><span class="term-name">Bug Bounty</span><span class="term-arrow">▼</span></div><div class="term-body">Programs where companies pay security researchers to find and report vulnerabilities. Platforms: HackerOne, Bugcrowd, Synack. Good way to gain real experience.</div></div></div></div><div class="tab-content" id="t25-interview"><div class="interview-section"><div class="interview-title">🎯 Common Interview Questions</div><ul class="q-list"><li>What is the difference between Red Team and Blue Team?</li><li>What certifications are most valuable for a SOC analyst role?</li><li>Where do you practice your cybersecurity skills? (TryHackMe, HackTheBox)</li><li>What is a bug bounty program?</li><li>What's your career goal in cybersecurity?</li></ul></div></div>`}
+];
+
+// YouTube links per module
+const ytLinks = [
+  [{t:"Cybersecurity Explained in 100 Seconds",u:"https://www.youtube.com/results?search_query=cybersecurity+explained+beginners"},{t:"What is Cybersecurity? (TechWorld)",u:"https://www.youtube.com/results?search_query=what+is+cybersecurity+career"},{t:"Cybersecurity Career Roadmap 2024",u:"https://www.youtube.com/results?search_query=cybersecurity+career+roadmap+2024"}],
+  [{t:"CIA Triad Explained Simply",u:"https://www.youtube.com/results?search_query=CIA+triad+cybersecurity+explained"},{t:"Zero Trust Security Model",u:"https://www.youtube.com/results?search_query=zero+trust+security+explained"},{t:"Defense in Depth Explained",u:"https://www.youtube.com/results?search_query=defense+in+depth+cybersecurity"}],
+  [{t:"Threat Actors & Hackers Types",u:"https://www.youtube.com/results?search_query=types+of+threat+actors+cybersecurity"},{t:"Cyber Kill Chain Explained",u:"https://www.youtube.com/results?search_query=cyber+kill+chain+explained"},{t:"APT Groups — Nation State Hackers",u:"https://www.youtube.com/results?search_query=nation+state+hackers+APT+cybersecurity"}],
+  [{t:"All Types of Malware Explained",u:"https://www.youtube.com/results?search_query=types+of+malware+explained"},{t:"How Ransomware Works",u:"https://www.youtube.com/results?search_query=how+ransomware+works+explained"},{t:"Botnets and C2 Explained",u:"https://www.youtube.com/results?search_query=botnet+command+control+explained"}],
+  [{t:"OSI Model Explained",u:"https://www.youtube.com/results?search_query=OSI+model+explained+simply"},{t:"Networking Fundamentals for Hackers",u:"https://www.youtube.com/results?search_query=networking+fundamentals+cybersecurity"},{t:"TCP/IP and DNS Explained",u:"https://www.youtube.com/results?search_query=TCP+IP+DNS+explained+beginners"}],
+  [{t:"Linux for Hackers — Basics",u:"https://www.youtube.com/results?search_query=linux+for+hackers+beginners"},{t:"Windows Security Event Logs",u:"https://www.youtube.com/results?search_query=windows+security+event+logs"},{t:"File Permissions in Linux",u:"https://www.youtube.com/results?search_query=linux+file+permissions+chmod+explained"}],
+  [{t:"How the Internet Works",u:"https://www.youtube.com/results?search_query=how+web+applications+work"},{t:"HTTP vs HTTPS Explained",u:"https://www.youtube.com/results?search_query=HTTP+vs+HTTPS+explained"},{t:"APIs for Beginners",u:"https://www.youtube.com/results?search_query=what+is+API+explained+beginner"}],
+  [{t:"OWASP Top 10 2021 Explained",u:"https://www.youtube.com/results?search_query=OWASP+top+10+2021+explained"},{t:"SQL Injection Tutorial",u:"https://www.youtube.com/results?search_query=SQL+injection+attack+explained"},{t:"XSS Cross Site Scripting",u:"https://www.youtube.com/results?search_query=XSS+cross+site+scripting+explained"}],
+  [{t:"Cryptography for Beginners",u:"https://www.youtube.com/results?search_query=cryptography+for+beginners+cybersecurity"},{t:"How HTTPS Works (TLS Handshake)",u:"https://www.youtube.com/results?search_query=TLS+handshake+HTTPS+explained"},{t:"Hashing vs Encryption",u:"https://www.youtube.com/results?search_query=hashing+vs+encryption+explained"}],
+  [{t:"MFA Explained — How It Protects You",u:"https://www.youtube.com/results?search_query=multi+factor+authentication+explained"},{t:"RBAC vs ABAC Access Control",u:"https://www.youtube.com/results?search_query=RBAC+vs+ABAC+access+control"},{t:"OAuth 2.0 Explained",u:"https://www.youtube.com/results?search_query=OAuth+2.0+explained+simply"}],
+  [{t:"Firewall Types Explained",u:"https://www.youtube.com/results?search_query=types+of+firewalls+explained"},{t:"IDS vs IPS Explained",u:"https://www.youtube.com/results?search_query=IDS+vs+IPS+explained"},{t:"VPN Explained Simply",u:"https://www.youtube.com/results?search_query=VPN+explained+how+it+works"}],
+  [{t:"What is a SIEM?",u:"https://www.youtube.com/results?search_query=what+is+SIEM+explained"},{t:"Splunk Tutorial for Beginners",u:"https://www.youtube.com/results?search_query=splunk+tutorial+beginners+2024"},{t:"EDR vs AV vs XDR",u:"https://www.youtube.com/results?search_query=EDR+XDR+endpoint+security+explained"}],
+  [{t:"SOC Analyst Day in the Life",u:"https://www.youtube.com/results?search_query=SOC+analyst+day+in+life"},{t:"How to Become a SOC Analyst",u:"https://www.youtube.com/results?search_query=how+to+become+SOC+analyst"},{t:"SOC Tools and Workflow",u:"https://www.youtube.com/results?search_query=SOC+tools+workflow+cybersecurity"}],
+  [{t:"Incident Response Process",u:"https://www.youtube.com/results?search_query=incident+response+process+cybersecurity"},{t:"How to Handle a Ransomware Attack",u:"https://www.youtube.com/results?search_query=ransomware+incident+response"},{t:"Digital Forensics Basics",u:"https://www.youtube.com/results?search_query=digital+forensics+basics+cybersecurity"}],
+  [{t:"Threat Intelligence Explained",u:"https://www.youtube.com/results?search_query=threat+intelligence+explained"},{t:"MITRE ATT&CK Framework",u:"https://www.youtube.com/results?search_query=MITRE+ATTCK+framework+explained"},{t:"IOCs vs IOAs",u:"https://www.youtube.com/results?search_query=IOC+vs+IOA+threat+intelligence"}],
+  [{t:"Vulnerability Management Process",u:"https://www.youtube.com/results?search_query=vulnerability+management+process"},{t:"CVSS Scoring Explained",u:"https://www.youtube.com/results?search_query=CVSS+score+vulnerability+explained"},{t:"Nessus Tutorial",u:"https://www.youtube.com/results?search_query=nessus+vulnerability+scanner+tutorial"}],
+  [{t:"Penetration Testing Full Course",u:"https://www.youtube.com/results?search_query=penetration+testing+full+course+beginner"},{t:"How to Start Ethical Hacking",u:"https://www.youtube.com/results?search_query=how+to+start+ethical+hacking+2024"},{t:"Metasploit Tutorial",u:"https://www.youtube.com/results?search_query=metasploit+tutorial+beginners"}],
+  [{t:"Social Engineering Explained",u:"https://www.youtube.com/results?search_query=social+engineering+attacks+explained"},{t:"How to Spot Phishing Emails",u:"https://www.youtube.com/results?search_query=how+to+spot+phishing+emails"},{t:"Kevin Mitnick — Social Engineering",u:"https://www.youtube.com/results?search_query=Kevin+Mitnick+social+engineering"}],
+  [{t:"ISO 27001 Explained",u:"https://www.youtube.com/results?search_query=ISO+27001+explained+simply"},{t:"NIST Cybersecurity Framework",u:"https://www.youtube.com/results?search_query=NIST+cybersecurity+framework+explained"},{t:"GRC for Beginners",u:"https://www.youtube.com/results?search_query=GRC+governance+risk+compliance+cybersecurity"}],
+  [{t:"Cloud Security Fundamentals",u:"https://www.youtube.com/results?search_query=cloud+security+fundamentals+AWS"},{t:"AWS Shared Responsibility Model",u:"https://www.youtube.com/results?search_query=AWS+shared+responsibility+model+explained"},{t:"Cloud Security Misconfigurations",u:"https://www.youtube.com/results?search_query=cloud+security+misconfigurations+common"}],
+  [{t:"EDR Explained — CrowdStrike",u:"https://www.youtube.com/results?search_query=EDR+CrowdStrike+explained"},{t:"Endpoint Security Hardening",u:"https://www.youtube.com/results?search_query=endpoint+security+hardening"},{t:"Windows Defender vs Enterprise EDR",u:"https://www.youtube.com/results?search_query=windows+defender+vs+enterprise+EDR"}],
+  [{t:"Data Classification Explained",u:"https://www.youtube.com/results?search_query=data+classification+cybersecurity"},{t:"DLP — Data Loss Prevention",u:"https://www.youtube.com/results?search_query=DLP+data+loss+prevention+explained"},{t:"Encryption at Rest vs Transit",u:"https://www.youtube.com/results?search_query=encryption+at+rest+vs+transit"}],
+  [{t:"Security Awareness Training",u:"https://www.youtube.com/results?search_query=security+awareness+training+employees"},{t:"Password Manager Guide",u:"https://www.youtube.com/results?search_query=password+manager+explained+bitwarden"},{t:"Phishing Awareness Training",u:"https://www.youtube.com/results?search_query=phishing+awareness+training+2024"}],
+  [{t:"Nmap Full Tutorial",u:"https://www.youtube.com/results?search_query=nmap+tutorial+full+beginners"},{t:"Wireshark Tutorial for Beginners",u:"https://www.youtube.com/results?search_query=wireshark+tutorial+beginners"},{t:"Burp Suite Web Pentesting",u:"https://www.youtube.com/results?search_query=burp+suite+tutorial+beginners"}],
+  [{t:"How to Get Into Cybersecurity",u:"https://www.youtube.com/results?search_query=how+to+get+into+cybersecurity+2024"},{t:"Cybersecurity Certifications Roadmap",u:"https://www.youtube.com/results?search_query=cybersecurity+certifications+roadmap+2024"},{t:"TryHackMe vs HackTheBox",u:"https://www.youtube.com/results?search_query=TryHackMe+vs+HackTheBox+which+is+better"}]
+];
+
+// ─── GLOSSARY DATA ───
+const glossaryTerms = [
+  {t:"Zero-Day",d:"A vulnerability unknown to the vendor with no available patch. Extremely dangerous and valuable to attackers."},
+  {t:"Firewall",d:"A security system that monitors and controls network traffic based on predetermined security rules."},
+  {t:"Encryption",d:"Converting readable data into an unreadable form using an algorithm and key to protect confidentiality."},
+  {t:"Malware",d:"Malicious software designed to harm, disrupt, or gain unauthorized access to a system."},
+  {t:"Phishing",d:"Deceptive emails/messages impersonating trusted entities to steal credentials or install malware."},
+  {t:"CIA Triad",d:"Confidentiality, Integrity, Availability — the three fundamental principles of information security."},
+  {t:"VPN",d:"Virtual Private Network — creates an encrypted tunnel over the internet for secure, private communication."},
+  {t:"SIEM",d:"Security Information and Event Management — aggregates logs and detects threats across an organization."},
+  {t:"EDR",d:"Endpoint Detection and Response — monitors endpoints for suspicious behavior and enables investigation."},
+  {t:"Penetration Test",d:"An authorized simulated cyberattack to find vulnerabilities before real attackers do."},
+  {t:"SOC",d:"Security Operations Center — centralized team monitoring, detecting, and responding to cyber threats 24/7."},
+  {t:"CVE",d:"Common Vulnerabilities and Exposures — unique identifier for a publicly known security vulnerability."},
+  {t:"CVSS",d:"Common Vulnerability Scoring System — 0-10 score rating the severity of a vulnerability."},
+  {t:"DDoS",d:"Distributed Denial of Service — flooding a target with traffic to make it unavailable."},
+  {t:"MFA",d:"Multi-Factor Authentication — using 2+ verification methods. Blocks 99.9% of account compromise attacks."},
+  {t:"APT",d:"Advanced Persistent Threat — a sophisticated, long-term attack campaign usually sponsored by nation-states."},
+  {t:"OWASP",d:"Open Web Application Security Project — publishes the Top 10 most critical web security risks."},
+  {t:"SQL Injection",d:"Inserting malicious SQL into input fields to manipulate database queries and steal data."},
+  {t:"XSS",d:"Cross-Site Scripting — injecting malicious scripts into webpages viewed by other users."},
+  {t:"CSIRT",d:"Computer Security Incident Response Team — the dedicated team for managing security incidents."},
+  {t:"IOC",d:"Indicator of Compromise — artifacts (IP, hash, domain) suggesting a system has been breached."},
+  {t:"MITRE ATT&CK",d:"Knowledge base of adversary tactics and techniques based on real-world attack observations."},
+  {t:"Ransomware",d:"Malware that encrypts files and demands payment for decryption. Colonial Pipeline, WannaCry are examples."},
+  {t:"Social Engineering",d:"Manipulating people into revealing information or taking actions that compromise security."},
+  {t:"Zero Trust",d:"Security model of 'Never trust, always verify' — no user or device trusted by default, even inside the network."},
+  {t:"Threat Hunting",d:"Proactively searching for hidden threats that evaded automated detection tools."},
+  {t:"Botnet",d:"Network of infected computers controlled remotely by an attacker for DDoS, spam, or crypto mining."},
+  {t:"RBAC",d:"Role-Based Access Control — assigning permissions based on a user's role in the organization."},
+  {t:"TLS/SSL",d:"Transport Layer Security — cryptographic protocol that powers HTTPS for secure web communication."},
+  {t:"Privilege Escalation",d:"Gaining higher access permissions than initially obtained. Critical step in most attack chains."},
+  {t:"Lateral Movement",d:"Moving through a network after initial compromise to access more systems and data."},
+  {t:"Data Exfiltration",d:"Unauthorized transfer of data from a system. The final goal of many cyberattacks."},
+  {t:"Vulnerability",d:"A weakness in a system that can be exploited by a threat actor to cause harm."},
+  {t:"Patch Management",d:"Process of regularly updating software to fix known vulnerabilities and reduce attack surface."},
+];
+
+let completedModules = new Set();
+
+// ─── RENDER MODULES ───
+function renderModules(){
+  const grid = document.getElementById('modulesGrid');
+  const panels = document.getElementById('modulePanels');
+  grid.innerHTML = '';
+  panels.innerHTML = '';
+  modules.forEach(m => {
+    // Card
+    const card = document.createElement('div');
+    card.className = 'module-card fade-in';
+    card.setAttribute('data-id', m.id);
+    card.setAttribute('data-title', m.title.toLowerCase());
+    card.setAttribute('data-tag', m.tag.toLowerCase());
+    card.innerHTML = `
+      <div class="module-icon">${m.icon}</div>
+      <div class="module-num">MODULE ${String(m.id).padStart(2,'0')}</div>
+      <div class="module-title">${m.title}</div>
+      <div class="module-desc">${m.desc}</div>
+      <span class="module-tag">${m.tag}</span>
+    `;
+    card.onclick = () => togglePanel(m.id);
+    grid.appendChild(card);
+
+    // Panel
+    const panel = document.createElement('div');
+    panel.className = 'module-panel';
+    panel.id = `panel-${m.id}`;
+    const ytHtml = ytLinks[m.id-1].map(l=>`
+      <a href="${l.u}" target="_blank" class="yt-link">
+        <div class="yt-thumb">▶</div>
+        <span>${l.t}</span>
+      </a>
+    `).join('');
+    panel.innerHTML = `
+      <div class="panel-header">
+        <div class="panel-icon">${m.icon}</div>
+        <div class="panel-header-text">
+          <h2>Module ${m.id} — ${m.title}</h2>
+          <p>${m.desc}</p>
+        </div>
+        <button class="close-panel" onclick="togglePanel(${m.id})">✕ Close</button>
+      </div>
+      <div class="panel-body">
+        ${m.content}
+        <div class="yt-section">
+          <div class="yt-title">▶ YouTube Resources</div>
+          <div class="yt-links">${ytHtml}</div>
+        </div>
+      </div>
+    `;
+    panels.appendChild(panel);
+  });
+  observeFadeIn();
+}
+
+function togglePanel(id){
+  const panel = document.getElementById(`panel-${id}`);
+  const isOpen = panel.classList.contains('active');
+  // Close all
+  document.querySelectorAll('.module-panel.active').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.module-card').forEach(c => c.style.borderColor = '');
+  if(!isOpen){
+    panel.classList.add('active');
+    const card = document.querySelector(`[data-id="${id}"]`);
+    if(card) card.style.borderColor = 'var(--blue-bright)';
+    setTimeout(()=>{panel.scrollIntoView({behavior:'smooth',block:'start'});},100);
+    completedModules.add(id);
+  }
+}
+
+function toggleTerm(el){
+  el.classList.toggle('open');
+  el.querySelector('.term-body').classList.toggle('open');
+}
+
+function switchTab(btn, targetId){
+  const panel = btn.closest('.module-panel') || btn.closest('.panel-body').parentElement;
+  panel.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  panel.querySelectorAll('.tab-content').forEach(c=>c.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById(targetId).classList.add('active');
+}
+
+function filterModules(q){
+  q = q.toLowerCase();
+  document.querySelectorAll('.module-card').forEach(card=>{
+    const title = card.getAttribute('data-title');
+    const tag = card.getAttribute('data-tag');
+    const show = !q || title.includes(q) || tag.includes(q);
+    card.style.display = show ? '' : 'none';
+  });
+}
+
+function renderGlossary(){
+  const g = document.getElementById('glossaryGrid');
+  g.innerHTML = glossaryTerms.map(t=>`
+    <div class="gloss-item">
+      <div class="gloss-term">${t.t}</div>
+      <div class="gloss-def">${t.d}</div>
+    </div>
+  `).join('');
+}
+
+function observeFadeIn(){
+  const observer = new IntersectionObserver(entries=>{
+    entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');}});
+  },{threshold:0.1});
+  document.querySelectorAll('.fade-in').forEach(el=>observer.observe(el));
+}
+
+// ─── HAMBURGER MENU ───
+function toggleMenu(){
+  const btn = document.getElementById('hamburger');
+  const nav = document.getElementById('mobileNav');
+  btn.classList.toggle('open');
+  nav.classList.toggle('open');
+}
+function closeMenu(){
+  document.getElementById('hamburger').classList.remove('open');
+  document.getElementById('mobileNav').classList.remove('open');
+}
+// Close mobile menu on outside click
+document.addEventListener('click', e => {
+  const ham = document.getElementById('hamburger');
+  const nav = document.getElementById('mobileNav');
+  if(!ham.contains(e.target) && !nav.contains(e.target)){
+    ham.classList.remove('open');
+    nav.classList.remove('open');
+  }
+});
+
+// Scroll to top
+window.addEventListener('scroll',()=>{
+  document.getElementById('scrollTop').classList.toggle('visible',window.scrollY>500);
+});
+
+// Init
+renderModules();
+renderGlossary();
+</script>
+</body>
+</html>
